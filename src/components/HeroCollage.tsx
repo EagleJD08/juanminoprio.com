@@ -61,7 +61,7 @@ function seededRandom(seed: number): number {
 }
 
 const NUM_PARTICLES = jdmPoints.length;
-const NAVY_R = 27, NAVY_G = 42, NAVY_B = 74;
+const INK_R = 26, INK_G = 26, INK_B = 26;
 
 const scatteredPoints = jdmPoints.map((_, i) => ({
   x: 0.1 + seededRandom(i * 7 + 1) * 0.8,
@@ -233,7 +233,7 @@ export default function HeroCollage() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${NAVY_R},${NAVY_G},${NAVY_B},${alpha})`;
+            ctx.strokeStyle = `rgba(${INK_R},${INK_G},${INK_B},${alpha})`;
             ctx.stroke();
           }
         }
@@ -243,15 +243,15 @@ export default function HeroCollage() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${NAVY_R},${NAVY_G},${NAVY_B},0.9)`;
+        ctx.fillStyle = `rgba(${INK_R},${INK_G},${INK_B},0.9)`;
         ctx.fill();
 
         const grad = ctx.createRadialGradient(
           p.x, p.y, p.size * 0.5,
           p.x, p.y, p.size * 4
         );
-        grad.addColorStop(0, `rgba(${NAVY_R},${NAVY_G},${NAVY_B},0.10)`);
-        grad.addColorStop(1, "rgba(27,42,74,0)");
+        grad.addColorStop(0, `rgba(${INK_R},${INK_G},${INK_B},0.10)`);
+        grad.addColorStop(1, "rgba(26,26,26,0)");
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
         ctx.fillStyle = grad;

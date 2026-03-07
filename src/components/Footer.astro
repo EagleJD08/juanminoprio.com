@@ -5,13 +5,13 @@ const socialLinks = [
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="py-10 bg-navy border-t border-cream/[0.06]">
+<footer class="py-10 bg-ink border-t border-snow/[0.06]">
   <div class="mx-auto max-w-6xl px-6">
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="flex items-center gap-3">
         <span class="font-heading font-bold text-lg text-white">JM</span>
-        <span class="text-cream/20">|</span>
-        <span class="text-xs text-cream/30 font-body">Juan Minoprio</span>
+        <span class="text-snow/20">|</span>
+        <span class="text-xs text-snow/30 font-body">Juan Minoprio</span>
       </div>
 
       <div class="flex items-center gap-2">
@@ -21,16 +21,16 @@ const currentYear = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.label}
-            class="w-9 h-9 rounded-xl bg-cream/[0.05] flex items-center justify-center cursor-pointer hover:bg-cream/[0.1] hover:-translate-y-0.5 transition-all duration-300"
+            class="w-9 h-9 rounded-xl bg-snow/[0.05] flex items-center justify-center cursor-pointer hover:bg-snow/[0.1] hover:-translate-y-0.5 transition-all duration-300"
           >
-            <svg class="w-4 h-4 fill-cream/50 hover:fill-cream/80 transition-colors duration-300" viewBox="0 0 24 24"><path d={link.icon} /></svg>
+            <svg class="w-4 h-4 fill-snow/50 hover:fill-snow/80 transition-colors duration-300" viewBox="0 0 24 24"><path d={link.icon} /></svg>
           </a>
         ))}
       </div>
     </div>
 
-    <div class="mt-6 pt-6 border-t border-cream/[0.06] text-center">
-      <p class="text-xs text-cream/25">
+    <div class="mt-6 pt-6 border-t border-snow/[0.06] text-center">
+      <p class="text-xs text-snow/25">
         &copy; {currentYear} Juan Minoprio. All rights reserved.
       </p>
     </div>

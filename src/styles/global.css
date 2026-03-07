@@ -2,15 +2,14 @@
 
 @theme {
   /* Brand Colors */
-  --color-navy: #1B2A4A;
-  --color-cream: #FAF6F1;
-  --color-terracotta: #C4654A;
-  --color-sage: #7A9E7E;
-  --color-slate: #6B7B8D;
-  --color-sand: #D4C5B2;
-  --color-dusty-blue: #6B8CAE;
-  --color-warm-gold: #D4A84B;
-  --color-soft-plum: #8B6F8E;
+  --color-ink: #1A1A1A;
+  --color-snow: #FAFAFA;
+  --color-cocoa: #6B4226;
+  --color-navy: #2C4A6E;
+  --color-charcoal: #4A4A4A;
+  --color-mushroom: #B8A99A;
+  --color-linen: #F5F0EB;
+  --color-mist: #E8EDF3;
 
   /* Font Families */
   --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -101,8 +100,8 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-navy);
-  background-color: var(--color-cream);
+  color: var(--color-ink);
+  background-color: var(--color-snow);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

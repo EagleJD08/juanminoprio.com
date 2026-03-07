@@ -16,9 +16,9 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const pillarColors: Record<string, string> = {
-  business: 'bg-dusty-blue/10 text-dusty-blue',
-  marketing: 'bg-terracotta/10 text-terracotta',
-  ai: 'bg-sage/10 text-sage',
+  business: 'bg-navy/10 text-navy',
+  marketing: 'bg-cocoa/10 text-cocoa',
+  ai: 'bg-charcoal/10 text-charcoal',
 };
 ---
 
@@ -26,26 +26,26 @@ const pillarColors: Record<string, string> = {
   <Navbar />
   <article class="py-20 bg-white">
     <div class="mx-auto max-w-3xl px-6">
-      <a href="/#portfolio" class="inline-flex items-center gap-2 text-sm text-slate hover:text-navy transition-colors mb-8">
+      <a href="/#portfolio" class="inline-flex items-center gap-2 text-sm text-charcoal hover:text-ink transition-colors mb-8">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         Back to portfolio
       </a>
 
-      <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium ${pillarColors[entry.data.pillar] || 'bg-sand text-slate'}`}>
+      <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium ${pillarColors[entry.data.pillar] || 'bg-mushroom text-charcoal'}`}>
         {entry.data.pillar}
       </span>
-      <h1 class="mt-4 font-heading font-bold text-3xl md:text-4xl text-navy leading-tight">
+      <h1 class="mt-4 font-heading font-bold text-3xl md:text-4xl text-ink leading-tight">
         {entry.data.title}
       </h1>
-      <p class="mt-4 text-lg text-slate">{entry.data.description}</p>
-      <time class="mt-2 block text-sm text-slate/60">{entry.data.date}</time>
+      <p class="mt-4 text-lg text-charcoal">{entry.data.description}</p>
+      <time class="mt-2 block text-sm text-charcoal/60">{entry.data.date}</time>
 
-      <div class="mt-10 prose prose-slate max-w-none
-        prose-headings:font-heading prose-headings:text-navy
-        prose-p:text-slate prose-p:leading-relaxed
-        prose-a:text-terracotta prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-navy
-        prose-blockquote:font-accent prose-blockquote:italic prose-blockquote:border-terracotta
+      <div class="mt-10 prose prose-neutral max-w-none
+        prose-headings:font-heading prose-headings:text-ink
+        prose-p:text-charcoal prose-p:leading-relaxed
+        prose-a:text-cocoa prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-ink
+        prose-blockquote:font-accent prose-blockquote:italic prose-blockquote:border-cocoa
       ">
         <Content />
       </div>
