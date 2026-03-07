@@ -1,3 +1,7 @@
+---
+import HeroCollage from './HeroCollage.tsx';
+---
+
 <section class="relative min-h-screen flex items-center overflow-hidden bg-cream">
   <!-- Animated background shapes -->
   <div class="absolute inset-0 pointer-events-none overflow-hidden">
@@ -51,17 +55,9 @@
         </div>
       </div>
 
-      <!-- Headshot with decorative ring -->
-      <div class="flex-shrink-0 animate-fade-in" style="animation-delay: 0.3s;">
-        <div class="relative">
-          <div class="absolute -inset-5 rounded-full border-2 border-dashed border-sand/60 animate-[spin_40s_linear_infinite]"></div>
-          <div class="absolute -top-5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-terracotta"></div>
-          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-sage"></div>
-          <div class="absolute top-1/2 -left-5 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-dusty-blue"></div>
-          <div class="w-52 h-52 md:w-72 md:h-72 rounded-full bg-gradient-to-br from-sand to-sand/50 flex items-center justify-center shadow-2xl shadow-navy/[0.08]">
-            <span class="font-heading font-bold text-5xl md:text-6xl text-navy/15">JM</span>
-          </div>
-        </div>
+      <!-- JDM Particle Constellation -->
+      <div class="w-full md:flex-1 md:min-w-0 max-w-xl">
+        <HeroCollage client:load />
       </div>
     </div>
 
