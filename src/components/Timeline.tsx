@@ -223,18 +223,6 @@ export default function ResumeTimeline() {
               Activities: ALPFA, BOLD FIU, AMA (American Marketing Association)
             </p>
           </div>
-          {/* High School */}
-          <div className="pt-4 border-t border-[#D4C5B2]/30">
-            <h4 className="text-lg font-semibold text-[#1B2A4A]/70 font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
-              Doral Performing Arts & Entertainment Academy
-            </h4>
-            <p className="text-[#6B7B8D] text-sm mt-1">
-              High School Diploma — Cinematography & Film/Video Production
-            </p>
-            <p className="text-[#6B7B8D]/60 text-xs mt-2">
-              Activities: Firebird TV, Spanish Honor Society
-            </p>
-          </div>
         </div>
       ),
     },
@@ -247,9 +235,6 @@ export default function ResumeTimeline() {
           </h4>
           {[
             { name: "Google Analytics Certification", issuer: "Google Digital Academy" },
-            { name: "Social Media Marketing", issuer: "HubSpot Academy" },
-            { name: "Inbound Marketing Optimization", issuer: "HubSpot Academy" },
-            { name: "Beginner SEO", issuer: "Semrush" },
             { name: "AT&T Marketing Externship", issuer: "Paragon One" },
             { name: "Responsive Web Design", issuer: "freeCodeCamp" },
           ].map((cert) => (
