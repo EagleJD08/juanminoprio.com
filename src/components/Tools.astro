@@ -1,0 +1,59 @@
+---
+const tools = [
+  { name: "HubSpot", category: "Marketing", description: "CRM, email marketing, and inbound campaigns", color: "dusty-blue" },
+  { name: "Google Ads", category: "Marketing", description: "Paid search and display campaigns", color: "dusty-blue" },
+  { name: "Meta Ads", category: "Marketing", description: "Paid social across Facebook and Instagram", color: "dusty-blue" },
+  { name: "Google Analytics", category: "Marketing", description: "Data and performance tracking", color: "dusty-blue" },
+  { name: "MailChimp", category: "Marketing", description: "Email campaigns and audience segmentation", color: "dusty-blue" },
+  { name: "Hootsuite", category: "Marketing", description: "Social media management and scheduling", color: "dusty-blue" },
+  { name: "Adobe Creative Suite", category: "Design", description: "Illustrator, Photoshop, and InDesign", color: "soft-plum" },
+  { name: "Canva", category: "Design", description: "Quick graphics and social visuals", color: "soft-plum" },
+  { name: "Figma", category: "Design", description: "Visual content and UI design", color: "soft-plum" },
+  { name: "Claude", category: "AI", description: "Writing, analysis, and building systems", color: "terracotta" },
+  { name: "ChatGPT", category: "AI", description: "Research and brainstorming", color: "terracotta" },
+  { name: "Cursor", category: "AI", description: "AI-powered code editor", color: "terracotta" },
+  { name: "Notion", category: "Productivity", description: "Knowledge management and planning", color: "sage" },
+  { name: "LinkedIn", category: "Marketing", description: "Networking and content distribution", color: "dusty-blue" },
+  { name: "GitHub", category: "Productivity", description: "Code hosting and version control", color: "sage" },
+];
+
+const colorMap: Record<string, string> = {
+  terracotta: "group-hover:border-terracotta/30 group-hover:shadow-terracotta/[0.05]",
+  "dusty-blue": "group-hover:border-dusty-blue/30 group-hover:shadow-dusty-blue/[0.05]",
+  sage: "group-hover:border-sage/30 group-hover:shadow-sage/[0.05]",
+  "soft-plum": "group-hover:border-soft-plum/30 group-hover:shadow-soft-plum/[0.05]",
+};
+const dotMap: Record<string, string> = {
+  terracotta: "bg-terracotta",
+  "dusty-blue": "bg-dusty-blue",
+  sage: "bg-sage",
+  "soft-plum": "bg-soft-plum",
+};
+---
+
+<section id="tools" class="py-24 md:py-32 bg-cream relative">
+  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sand to-transparent"></div>
+
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="reveal text-center max-w-2xl mx-auto">
+      <span class="font-body text-xs font-medium tracking-widest uppercase text-terracotta">Stack</span>
+      <h2 class="mt-3 font-heading font-bold text-3xl md:text-5xl text-navy">Tools I use.</h2>
+      <p class="mt-4 text-slate">
+        A curated set of tools that power my workflows across marketing, analysis, and AI productivity.
+      </p>
+    </div>
+
+    <div class="mt-16 stagger-children grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {tools.map((tool) => (
+        <div class={`reveal group p-5 rounded-2xl border border-sand/50 bg-white/60 cursor-default hover:bg-white hover:shadow-lg hover:-translate-y-0.5 ${colorMap[tool.color] || ""} transition-all duration-300`}>
+          <div class="flex items-center gap-3">
+            <div class={`w-2 h-2 rounded-full ${dotMap[tool.color] || "bg-sand"}`}></div>
+            <span class="text-[10px] font-medium tracking-widest uppercase text-slate/50">{tool.category}</span>
+          </div>
+          <h3 class="mt-3 font-heading font-semibold text-navy">{tool.name}</h3>
+          <p class="mt-1 text-sm text-slate">{tool.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

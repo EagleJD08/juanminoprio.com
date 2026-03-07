@@ -1,0 +1,43 @@
+---
+/**
+ * A CSS-only marquee ticker — zero JS, infinite scroll
+ * Inspired by MagicUI Marquee component
+ */
+const keywords = [
+  "Financial Services Marketing",
+  "Campaign Management",
+  "Email Marketing",
+  "Paid Media Advertising",
+  "Marketing Analytics",
+  "B2B Marketing",
+  "A/B Testing",
+  "Bilingual EN/ES",
+  "Content Strategy",
+  "Cross-functional Coordination",
+];
+
+const separator = "✦";
+---
+
+<div class="relative overflow-hidden bg-navy py-4 select-none marquee-container">
+  <!-- Fade edges -->
+  <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-navy to-transparent z-10"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-navy to-transparent z-10"></div>
+
+  <div class="flex gap-6 animate-marquee" style="--marquee-duration: 35s; width: max-content;">
+    {/* First set */}
+    {keywords.map((word) => (
+      <span class="flex items-center gap-6 whitespace-nowrap">
+        <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
+        <span class="text-terracotta/60 text-xs">{separator}</span>
+      </span>
+    ))}
+    {/* Duplicate for seamless loop */}
+    {keywords.map((word) => (
+      <span class="flex items-center gap-6 whitespace-nowrap">
+        <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
+        <span class="text-terracotta/60 text-xs">{separator}</span>
+      </span>
+    ))}
+  </div>
+</div>

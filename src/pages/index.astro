@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import PortfolioGrid from '../components/PortfolioGrid.astro';
+import Resume from '../components/Resume.astro';
+import Tools from '../components/Tools.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import Marquee from '../components/Marquee.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+---
+
+<BaseLayout title="Juan Minoprio — Finance. Marketing. AI.">
+  <Navbar />
+  <main>
+    <Hero />
+    <Marquee />
+    <About />
+    <PortfolioGrid />
+    <Resume />
+    <Tools />
+    <Contact />
+  </main>
+  <Footer />
+  <ScrollReveal />
+</BaseLayout>
