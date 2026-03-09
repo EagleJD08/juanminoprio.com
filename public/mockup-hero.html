@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Sketch Animation Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #FAF6F1;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 72rem;
+    width: 100%;
+  }
+
+  .text-side {
+    flex: 1;
+  }
+
+  .text-side .tagline {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C4654A;
+    margin-bottom: 1rem;
+  }
+
+  .text-side h1 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1B2A4A;
+  }
+
+  .text-side .subtitle {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #6B7B8D;
+    margin-top: 1.25rem;
+    max-width: 28rem;
+  }
+
+  .sketch-side {
+    flex-shrink: 0;
+    width: 640px;
+  }
+
+  /* === ANIMATION === */
+
+  .sketch-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: drawing-reveal 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.5s;
+  }
+
+  .sketch-reveal.animate {
+    animation: drawing-reveal 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes drawing-reveal {
+    0% {
+      clip-path: inset(0 100% 0 0);
+    }
+    100% {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  .sketch-float {
+    animation: gentle-float 6s ease-in-out infinite;
+    animation-delay: 2.3s; /* starts after reveal finishes */
+    animation-fill-mode: both;
+  }
+
+  @keyframes gentle-float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(0.5deg);
+    }
+  }
+
+  .sketch-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Controls */
+  .controls {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .replay-btn {
+    padding: 0.625rem 1.5rem;
+    background: #1B2A4A;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .replay-btn:hover {
+    background: #2a3d5f;
+  }
+
+  .info {
+    font-size: 0.75rem;
+    color: #6B7B8D;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sketch-reveal {
+      clip-path: inset(0 0 0 0);
+      animation: none;
+    }
+    .sketch-float {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-layout {
+      flex-direction: column;
+      text-align: center;
+    }
+    .sketch-side {
+      width: 100%;
+      max-width: 420px;
+    }
+    .text-side h1 {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-layout">
+  <div class="text-side">
+    <p class="tagline">Marketing &middot; Finance &middot; AI</p>
+    <h1>Making the<br>complex clear.</h1>
+    <p class="subtitle">The person who understands how money, products, and attention work — and makes it clear for everyone else.</p>
+  </div>
+
+  <div class="sketch-side">
+    <div class="sketch-float">
+      <div class="sketch-reveal" id="revealContainer">
+        <img
+          src="/images/hero/hero-sketch.png"
+          alt="Illustration combining NYC skyline, camera, data visualization, and creative elements in pencil sketch style"
+          class="sketch-img"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="replay-btn" onclick="replay()">Replay Animation</button>
+  <p class="info">
+    Phase 1: Drawing reveal (1.8s, left→right clip-path) &nbsp;|&nbsp;
+    Phase 2: Gentle float (6s loop, ±8px vertical, ±0.5° rotation)
+  </p>
+</div>
+
+<script>
+function replay() {
+  const el = document.getElementById('revealContainer');
+  // Reset by removing and re-adding the class
+  el.style.animation = 'none';
+  el.offsetHeight; // trigger reflow
+  el.style.animation = '';
+  el.classList.remove('sketch-reveal');
+  void el.offsetWidth; // force reflow
+  el.classList.add('sketch-reveal');
+}
+</script>
+
+</body>
+</html>

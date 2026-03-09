@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 4: Layered Parallax Depth</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FAF6F1;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .label {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    background: #1B2A4A; color: white; padding: 0.5rem 1.25rem;
+    border-radius: 9999px; font-size: 0.8rem; font-weight: 600; z-index: 10;
+  }
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 72rem;
+    width: 100%;
+  }
+  .text-side { flex: 1; z-index: 2; }
+  .text-side .tagline {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #C4654A; margin-bottom: 1rem;
+  }
+  .text-side h1 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 3.5rem; font-weight: 700; line-height: 1.1; color: #1B2A4A;
+  }
+  .text-side .subtitle {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 1.25rem; color: #6B7B8D; margin-top: 1.25rem; max-width: 28rem;
+  }
+
+  .parallax-side {
+    flex-shrink: 0;
+    width: 640px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .parallax-layer {
+    position: absolute;
+    inset: -30px; /* extra room for parallax movement */
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+  }
+
+  /* Background layer - farthest, moves least */
+  .layer-bg {
+    z-index: 1;
+    opacity: 0.15;
+  }
+  .layer-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: blur(2px);
+  }
+
+  /* Mid layer - skyline buildings */
+  .layer-mid {
+    z-index: 2;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%);
+    opacity: 0.4;
+  }
+  .layer-mid img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: blur(0.5px);
+  }
+
+  /* Foreground layer - camera + closest elements */
+  .layer-fg {
+    z-index: 3;
+  }
+  .layer-fg img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  /* Floating accent particles */
+  .accent-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-dot 4s ease-in-out infinite;
+  }
+
+  @keyframes float-dot {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* Drawing reveal */
+  .reveal-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    clip-path: inset(0 100% 0 0);
+    animation: drawing-reveal 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+  }
+
+  @keyframes drawing-reveal {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  /* Depth shadow */
+  .parallax-side::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    box-shadow: inset 0 0 60px rgba(250,246,241,0.8);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .hero-layout { flex-direction: column; text-align: center; }
+    .parallax-side { width: 100%; max-width: 420px; height: 280px; }
+    .text-side h1 { font-size: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="label">Option 4: Layered Parallax — move your mouse to see depth</div>
+
+<div class="hero-layout">
+  <div class="text-side">
+    <p class="tagline">Marketing &middot; Finance &middot; AI</p>
+    <h1>Making the<br>complex clear.</h1>
+    <p class="subtitle">The person who understands how money, products, and attention work — and makes it clear for everyone else.</p>
+  </div>
+
+  <div class="parallax-side" id="parallaxContainer">
+    <div class="reveal-wrapper">
+      <!-- Layer 1: Background (moves 2px) -->
+      <div class="parallax-layer layer-bg" data-speed="0.02">
+        <img src="/images/hero/hero-sketch.png" alt="" />
+      </div>
+
+      <!-- Layer 2: Mid (moves 5px) -->
+      <div class="parallax-layer layer-mid" data-speed="0.05">
+        <img src="/images/hero/hero-sketch.png" alt="" />
+      </div>
+
+      <!-- Layer 3: Foreground (moves 10px) -->
+      <div class="parallax-layer layer-fg" data-speed="0.1">
+        <img src="/images/hero/hero-sketch.png" alt="Sketch illustration" />
+      </div>
+
+      <!-- Floating accent dots -->
+      <div class="accent-dot" style="width:6px;height:6px;background:#C4654A;top:20%;left:15%;animation-delay:0s;z-index:5;"></div>
+      <div class="accent-dot" style="width:4px;height:4px;background:#6B8CAE;top:35%;right:20%;animation-delay:-1s;z-index:5;"></div>
+      <div class="accent-dot" style="width:5px;height:5px;background:#7A9E7E;bottom:25%;left:30%;animation-delay:-2s;z-index:5;"></div>
+      <div class="accent-dot" style="width:3px;height:3px;background:#D4A84B;top:60%;right:35%;animation-delay:-0.5s;z-index:5;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const container = document.getElementById('parallaxContainer');
+const layers = container.querySelectorAll('.parallax-layer');
+
+container.addEventListener('mousemove', (e) => {
+  const rect = container.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  layers.forEach(layer => {
+    const speed = parseFloat(layer.dataset.speed);
+    const moveX = x * speed * 200;
+    const moveY = y * speed * 200;
+    layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+});
+
+container.addEventListener('mouseleave', () => {
+  layers.forEach(layer => {
+    layer.style.transform = 'translate(0, 0)';
+  });
+});
+</script>
+
+</body>
+</html>

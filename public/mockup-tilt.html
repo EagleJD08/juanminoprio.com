@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 1: 3D Tilt Card</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FAF6F1;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .label {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    background: #1B2A4A; color: white; padding: 0.5rem 1.25rem;
+    border-radius: 9999px; font-size: 0.8rem; font-weight: 600; z-index: 10;
+  }
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 72rem;
+    width: 100%;
+  }
+  .text-side { flex: 1; }
+  .text-side .tagline {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #C4654A; margin-bottom: 1rem;
+  }
+  .text-side h1 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 3.5rem; font-weight: 700; line-height: 1.1; color: #1B2A4A;
+  }
+  .text-side .subtitle {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 1.25rem; color: #6B7B8D; margin-top: 1.25rem; max-width: 28rem;
+  }
+
+  .sketch-side {
+    flex-shrink: 0;
+    width: 640px;
+    perspective: 1000px;
+  }
+
+  .tilt-card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    border-radius: 1rem;
+    will-change: transform;
+  }
+
+  .tilt-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(27,42,74,0.08), rgba(196,101,74,0.08), rgba(107,140,174,0.08));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    filter: blur(20px);
+  }
+
+  .tilt-card:hover::before {
+    opacity: 1;
+  }
+
+  .tilt-card .card-inner {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212,197,178,0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(27,42,74,0.08), 0 4px 16px rgba(27,42,74,0.04);
+    transition: box-shadow 0.3s;
+    overflow: hidden;
+  }
+
+  .tilt-card:hover .card-inner {
+    box-shadow: 0 30px 80px rgba(27,42,74,0.12), 0 8px 24px rgba(27,42,74,0.06);
+  }
+
+  /* Shine effect on hover */
+  .tilt-card .shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tilt-card:hover .shine {
+    opacity: 1;
+  }
+
+  .sketch-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.5rem;
+  }
+
+  /* Drawing reveal entrance */
+  .reveal-clip {
+    clip-path: inset(0 100% 0 0);
+    animation: drawing-reveal 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+  }
+
+  @keyframes drawing-reveal {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  @media (max-width: 768px) {
+    .hero-layout { flex-direction: column; text-align: center; }
+    .sketch-side { width: 100%; max-width: 420px; }
+    .text-side h1 { font-size: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="label">Option 1: 3D Tilt Card — move your mouse over the image</div>
+
+<div class="hero-layout">
+  <div class="text-side">
+    <p class="tagline">Marketing &middot; Finance &middot; AI</p>
+    <h1>Making the<br>complex clear.</h1>
+    <p class="subtitle">The person who understands how money, products, and attention work — and makes it clear for everyone else.</p>
+  </div>
+
+  <div class="sketch-side">
+    <div class="tilt-card" id="tiltCard">
+      <div class="shine" id="shine"></div>
+      <div class="card-inner">
+        <div class="reveal-clip">
+          <img src="/images/hero/hero-sketch.png" alt="Sketch illustration" class="sketch-img" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const card = document.getElementById('tiltCard');
+const shine = document.getElementById('shine');
+
+card.addEventListener('mousemove', (e) => {
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateX = ((y - centerY) / centerY) * -12;
+  const rotateY = ((x - centerX) / centerX) * 12;
+
+  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+  const mouseXPct = (x / rect.width) * 100;
+  const mouseYPct = (y / rect.height) * 100;
+  shine.style.setProperty('--mouse-x', mouseXPct + '%');
+  shine.style.setProperty('--mouse-y', mouseYPct + '%');
+});
+
+card.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+});
+</script>
+
+</body>
+</html>
