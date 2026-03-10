@@ -89,10 +89,13 @@ export default function ResumeTimeline() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
             <div>
               <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
-                Marketing Professional
+                Marketing Specialist
               </h4>
               <p className="text-[#6B4226] font-medium text-sm mt-1">
-                Charles Schwab
+                Charles Schwab &middot; Full-time
+              </p>
+              <p className="text-[#4A4A4A]/60 text-xs mt-0.5">
+                Jun 2025 – Present &middot; Austin, TX
               </p>
             </div>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#7A9E7E]/10 text-[#7A9E7E] text-xs font-medium whitespace-nowrap self-start">
@@ -100,17 +103,21 @@ export default function ResumeTimeline() {
               Current
             </span>
           </div>
-          <p className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mb-6">
-            Operating at the intersection of finance, product, and marketing
-            inside one of the nation's largest financial institutions. Bridging
-            data analysis with storytelling to drive strategy.
+          <p className="text-[#4A4A4A] text-xs font-medium mb-3">
+            Marketing Rotational Program — Advisor Services Marketing
           </p>
+          <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mb-6 space-y-2">
+            <li>Exceeded expectations by building 96 more emails and sending 54 more through compliance review than expected</li>
+            <li>Reduced average campaign turnaround time by 42%</li>
+            <li>Partnered with sales directors and Bank & Lending SMEs to increase data analysis capabilities</li>
+          </ul>
           <div className="flex flex-wrap gap-2">
             {[
-              "Marketing Strategy",
-              "Data Visualization",
-              "Financial Analysis",
-              "Campaign Architecture",
+              "Financial Marketing",
+              "Email Marketing",
+              "Marketing Analytics",
+              "B2B Marketing",
+              "Campaign Management",
             ].map((skill) => (
               <span
                 key={skill}
@@ -126,13 +133,72 @@ export default function ResumeTimeline() {
     {
       title: "Experience",
       content: (
-        <div>
-          <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A]/50 font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
-            Previous Roles
-          </h4>
-          <p className="text-[#4A4A4A]/60 text-sm md:text-base mt-2">
-            Details coming soon.
-          </p>
+        <div className="space-y-10">
+          {/* Schwab Intern */}
+          <div>
+            <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
+              Non-Traditional Activations Intern
+            </h4>
+            <p className="text-[#6B4226] font-medium text-sm mt-1">
+              Charles Schwab &middot; Internship
+            </p>
+            <p className="text-[#4A4A4A]/60 text-xs mt-0.5">
+              Jun 2024 – Aug 2024 &middot; Austin, TX
+            </p>
+            <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mt-3 space-y-2">
+              <li>Supported multi-channel campaigns (influencer, long-form video, gaming, and print) by coordinating creative briefs, publishers, and talent relationships — launch generated 10.2M impressions in week one</li>
+              <li>Designed a data-driven digital campaign targeting the Latino-affluent segment using audience segmentation and branding research</li>
+              <li>Partnered with cross-functional teams to analyze a real business problem and presented findings to senior leaders across departments</li>
+              <li>Received return offer</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {[
+                "Financial Marketing",
+                "Financial Services Marketing",
+                "Cross-functional Coordination",
+              ].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 rounded-full bg-[#FAFAFA] border border-[#B8A99A]/40 text-xs font-medium text-[#4A4A4A]"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Fifth & Cor */}
+          <div>
+            <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
+              Marketing Coordinator Intern
+            </h4>
+            <p className="text-[#6B4226] font-medium text-sm mt-1">
+              Fifth & Cor &middot; Internship
+            </p>
+            <p className="text-[#4A4A4A]/60 text-xs mt-0.5">
+              Jul 2023 – Jun 2024 &middot; Miami, FL
+            </p>
+            <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mt-3 space-y-2">
+              <li>Planned and produced content calendars across 7 social channels, managing publishing cadence and assets for consistent brand voice</li>
+              <li>Built data-driven content strategies using audience insights and A/B tests to increase awareness and conversions</li>
+              <li>Managed end-to-end external content production — coordinating influencers, photographers, and brand ambassadors; delivered 5 campaigns on budget</li>
+              <li>Tracked performance with weekly/monthly reports and iterated content based on analytics</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {[
+                "Influencer Marketing",
+                "Content Strategy",
+                "Cross-functional Coordination",
+              ].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 rounded-full bg-[#FAFAFA] border border-[#B8A99A]/40 text-xs font-medium text-[#4A4A4A]"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       ),
     },
@@ -140,12 +206,32 @@ export default function ResumeTimeline() {
       title: "Education",
       content: (
         <div>
-          <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A]/50 font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
-            Education
+          <h4 className="text-xl md:text-2xl font-semibold text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">
+            Florida International University
           </h4>
-          <p className="text-[#4A4A4A]/60 text-sm md:text-base mt-2">
-            Details coming soon.
+          <p className="text-[#6B4226] font-medium text-sm mt-1">
+            College of Business
           </p>
+          <p className="text-[#4A4A4A] text-sm md:text-base mt-3">
+            Bachelor of Business Administration — BBA, Marketing
+          </p>
+          <p className="text-[#4A4A4A] text-sm mt-1">
+            GPA: 3.93 &middot; Dean's List
+          </p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {[
+              "ALPFA",
+              "BOLD FIU",
+              "AMA (American Marketing Association) FIU",
+            ].map((org) => (
+              <span
+                key={org}
+                className="px-3 py-1 rounded-full bg-[#FAFAFA] border border-[#B8A99A]/40 text-xs font-medium text-[#4A4A4A]"
+              >
+                {org}
+              </span>
+            ))}
+          </div>
         </div>
       ),
     },
