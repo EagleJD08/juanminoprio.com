@@ -1,5 +1,9 @@
+---
+import HeroCollage from './HeroCollage.tsx';
+---
+
 <section class="relative min-h-screen flex items-center overflow-hidden bg-cream">
-  <!-- Subtle background texture -->
+  <!-- Animated background shapes -->
   <div class="absolute inset-0 pointer-events-none overflow-hidden">
     <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-terracotta/[0.04] animate-float"></div>
     <div class="absolute top-1/3 -left-32 w-72 h-72 rounded-full bg-dusty-blue/[0.04] animate-float" style="animation-delay: -2s;"></div>
@@ -50,20 +54,9 @@
         </div>
       </div>
 
-      <!-- Sketch illustration with drawing reveal -->
+      <!-- Interactive JDM particle constellation -->
       <div class="flex-shrink-0 animate-fade-in" style="animation-delay: 0.3s;">
-        <div class="relative">
-          <div class="absolute -inset-5 rounded-2xl border-2 border-dashed border-sand/40 animate-[spin_60s_linear_infinite]"></div>
-          <div class="sketch-reveal w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-linen to-cream flex items-center justify-center shadow-2xl shadow-navy/[0.06] overflow-hidden">
-            <img
-              src="/images/hero/hero-sketch.png"
-              alt="Illustration combining data visualization, creative elements, and business motifs"
-              class="w-full h-full object-cover sketch-float"
-              loading="eager"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-heading font-bold text-6xl md:text-7xl text-navy/10\'>JM</span>'"
-            />
-          </div>
-        </div>
+        <HeroCollage client:load />
       </div>
     </div>
 
@@ -76,34 +69,3 @@
     </div>
   </div>
 </section>
-
-<style>
-  .sketch-reveal {
-    clip-path: inset(0 100% 0 0);
-    animation: drawing-reveal 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
-  }
-
-  @keyframes drawing-reveal {
-    to { clip-path: inset(0 0 0 0); }
-  }
-
-  .sketch-float {
-    animation: gentle-float 6s ease-in-out 2.6s infinite;
-    animation-fill-mode: both;
-  }
-
-  @keyframes gentle-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-6px) rotate(0.3deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sketch-reveal {
-      clip-path: inset(0 0 0 0);
-      animation: none;
-    }
-    .sketch-float {
-      animation: none;
-    }
-  }
-</style>
