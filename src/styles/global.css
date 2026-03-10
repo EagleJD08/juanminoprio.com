@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors */
-  --color-navy: #1B2A4A;
-  --color-cream: #FAF6F1;
-  --color-terracotta: #C4654A;
+  /* Brand Colors — Updated palette */
+  --color-navy: #1A1A1A;
+  --color-cream: #FAFAFA;
+  --color-terracotta: #6B4226;
   --color-sage: #7A9E7E;
-  --color-slate: #6B7B8D;
-  --color-sand: #D4C5B2;
-  --color-dusty-blue: #6B8CAE;
+  --color-slate: #4A4A4A;
+  --color-sand: #B8A99A;
+  --color-dusty-blue: #2C4A6E;
   --color-warm-gold: #D4A84B;
   --color-soft-plum: #8B6F8E;
+  --color-linen: #F5F0EB;
+  --color-mist: #E8EDF3;
 
   /* Font Families */
   --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;

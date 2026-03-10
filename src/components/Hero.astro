@@ -1,11 +1,10 @@
 <section class="relative min-h-screen flex items-center overflow-hidden bg-cream">
-  <!-- Animated background shapes -->
+  <!-- Subtle background texture -->
   <div class="absolute inset-0 pointer-events-none overflow-hidden">
-    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-terracotta/[0.06] animate-float"></div>
-    <div class="absolute top-1/3 -left-32 w-72 h-72 rounded-full bg-dusty-blue/[0.06] animate-float" style="animation-delay: -2s;"></div>
-    <div class="absolute -bottom-16 right-1/4 w-64 h-64 rounded-full bg-sage/[0.06] animate-float" style="animation-delay: -4s;"></div>
-    <!-- Subtle dot grid pattern -->
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #1B2A4A 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-terracotta/[0.04] animate-float"></div>
+    <div class="absolute top-1/3 -left-32 w-72 h-72 rounded-full bg-dusty-blue/[0.04] animate-float" style="animation-delay: -2s;"></div>
+    <div class="absolute -bottom-16 right-1/4 w-64 h-64 rounded-full bg-linen animate-float" style="animation-delay: -4s;"></div>
+    <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle, #1A1A1A 1px, transparent 1px); background-size: 48px 48px;"></div>
   </div>
 
   <div class="relative mx-auto max-w-6xl px-6 py-20 md:py-0 w-full">
@@ -42,24 +41,27 @@
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a
-            href="#portfolio"
+            href="#about"
             class="group inline-flex items-center gap-2 text-navy font-body font-medium px-7 py-3.5 rounded-full border border-navy/15 cursor-pointer hover:border-navy/40 hover:bg-navy/[0.03] transition-all duration-300"
           >
-            View my work
+            View my experience
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- Headshot with decorative ring -->
+      <!-- Sketch illustration with drawing reveal -->
       <div class="flex-shrink-0 animate-fade-in" style="animation-delay: 0.3s;">
         <div class="relative">
-          <div class="absolute -inset-5 rounded-full border-2 border-dashed border-sand/60 animate-[spin_40s_linear_infinite]"></div>
-          <div class="absolute -top-5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-terracotta"></div>
-          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-sage"></div>
-          <div class="absolute top-1/2 -left-5 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-dusty-blue"></div>
-          <div class="w-52 h-52 md:w-72 md:h-72 rounded-full bg-gradient-to-br from-sand to-sand/50 flex items-center justify-center shadow-2xl shadow-navy/[0.08]">
-            <span class="font-heading font-bold text-5xl md:text-6xl text-navy/15">JM</span>
+          <div class="absolute -inset-5 rounded-2xl border-2 border-dashed border-sand/40 animate-[spin_60s_linear_infinite]"></div>
+          <div class="sketch-reveal w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-linen to-cream flex items-center justify-center shadow-2xl shadow-navy/[0.06] overflow-hidden">
+            <img
+              src="/images/hero/hero-sketch.png"
+              alt="Illustration combining data visualization, creative elements, and business motifs"
+              class="w-full h-full object-cover sketch-float"
+              loading="eager"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-heading font-bold text-6xl md:text-7xl text-navy/10\'>JM</span>'"
+            />
           </div>
         </div>
       </div>
@@ -74,3 +76,34 @@
     </div>
   </div>
 </section>
+
+<style>
+  .sketch-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: drawing-reveal 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+  }
+
+  @keyframes drawing-reveal {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  .sketch-float {
+    animation: gentle-float 6s ease-in-out 2.6s infinite;
+    animation-fill-mode: both;
+  }
+
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(0.3deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sketch-reveal {
+      clip-path: inset(0 0 0 0);
+      animation: none;
+    }
+    .sketch-float {
+      animation: none;
+    }
+  }
+</style>
