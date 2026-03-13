@@ -23,8 +23,8 @@ const navLinks = [
       ))}
     </ul>
 
-    <button id="mobile-menu-btn" class="md:hidden p-2 text-navy cursor-pointer rounded-lg hover:bg-navy/[0.04] transition-colors duration-200" aria-label="Toggle menu">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="mobile-menu-btn" class="md:hidden min-w-11 min-h-11 flex items-center justify-center text-navy cursor-pointer rounded-lg hover:bg-navy/[0.04] transition-colors duration-200" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
@@ -57,7 +57,11 @@ const navLinks = [
   }, { passive: true });
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
-  btn?.addEventListener("click", () => menu?.classList.toggle("hidden"));
+  btn?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    const isExpanded = !menu?.classList.contains("hidden");
+    btn?.setAttribute("aria-expanded", String(isExpanded));
+  });
   menu?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => menu?.classList.add("hidden"));
   });

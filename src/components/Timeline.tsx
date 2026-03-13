@@ -33,7 +33,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-full font-sans"
+      className="relative w-full font-sans"
       ref={containerRef}
     >
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
@@ -106,6 +106,17 @@ export default function ResumeTimeline() {
           <p className="text-[#4A4A4A] text-xs font-medium mb-3">
             Marketing Rotational Program — Advisor Services Marketing
           </p>
+          {/* Key metrics */}
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 py-3 border-y border-[#B8A99A]/20">
+            <div>
+              <span className="font-bold text-lg text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">42%</span>
+              <p className="text-[10px] text-[#4A4A4A]/60 mt-0.5">faster turnaround</p>
+            </div>
+            <div>
+              <span className="font-bold text-lg text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">96</span>
+              <p className="text-[10px] text-[#4A4A4A]/60 mt-0.5">extra emails built</p>
+            </div>
+          </div>
           <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mb-6 space-y-2">
             <li>Exceeded expectations by building 96 more emails and sending 54 more through compliance review than expected</li>
             <li>Reduced average campaign turnaround time by 42%</li>
@@ -145,7 +156,14 @@ export default function ResumeTimeline() {
             <p className="text-[#4A4A4A]/60 text-xs mt-0.5">
               Jun 2024 – Aug 2024 &middot; Austin, TX
             </p>
-            <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl mt-3 space-y-2">
+            {/* Key metric */}
+            <div className="flex gap-x-6 mt-3 mb-3 py-3 border-y border-[#B8A99A]/20">
+              <div>
+                <span className="font-bold text-lg text-[#1A1A1A] font-[Plus_Jakarta_Sans,system-ui,sans-serif]">10.2M+</span>
+                <p className="text-[10px] text-[#4A4A4A]/60 mt-0.5">impressions in week one</p>
+              </div>
+            </div>
+            <ul className="text-[#4A4A4A] text-sm md:text-base leading-relaxed max-w-xl space-y-2">
               <li>Supported multi-channel campaigns (influencer, long-form video, gaming, and print) by coordinating creative briefs, publishers, and talent relationships — launch generated 10.2M impressions in week one</li>
               <li>Designed a data-driven digital campaign targeting the Latino-affluent segment using audience segmentation and branding research</li>
               <li>Partnered with cross-functional teams to analyze a real business problem and presented findings to senior leaders across departments</li>
