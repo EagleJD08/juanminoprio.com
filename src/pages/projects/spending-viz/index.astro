@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+import Hero from "@components/spending-viz/Hero";
+import SpendingBreakdown from "@components/spending-viz/SpendingBreakdown";
+import FindYourself from "@components/spending-viz/FindYourself";
+import InsightCards from "@components/spending-viz/InsightCards";
+import NarrativeTransition from "@components/spending-viz/NarrativeTransition";
+import ClosingSection from "@components/spending-viz/ClosingSection";
+import ScrollProgress from "@components/spending-viz/ScrollProgress";
+import BackToTop from "@components/spending-viz/BackToTop";
+---
+
+<BaseLayout
+  title="How America Spends $77,280 — Juan Minoprio"
+  description="An interactive data visualization of the 2023 BLS Consumer Expenditure Survey. Same data, completely different experience."
+>
+  <Navbar />
+  <ScrollProgress client:load />
+  <BackToTop client:load />
+
+  <main id="main">
+    <Hero client:load />
+
+    <NarrativeTransition
+      client:visible
+      line1="The raw data is a spreadsheet."
+      line2="This is what it looks like when you actually design it."
+      accentColor="#6B4226"
+      accentClass="text-cocoa"
+    />
+
+    <SpendingBreakdown client:visible />
+
+    <NarrativeTransition
+      client:visible
+      line1="Averages are lazy storytelling."
+      line2="The real story is in who you are."
+      accentColor="#2C4A6E"
+      accentClass="text-slate-navy"
+    />
+
+    <FindYourself client:visible />
+
+    <NarrativeTransition
+      client:visible
+      line1="The best part of any dataset"
+      line2="is what nobody expects to find."
+      accentColor="#4A4A4A"
+      accentClass="text-charcoal/70"
+    />
+
+    <InsightCards client:visible />
+
+    <ClosingSection client:visible />
+
+    <!-- Data attribution -->
+    <div class="max-w-3xl mx-auto px-6 pb-12 text-center">
+      <p class="text-xs text-charcoal/60 leading-relaxed">
+        Data: Bureau of Labor Statistics Consumer Expenditure Survey, 2023.
+        All figures represent mean annual expenditures per consumer unit.
+        Built with AI-assisted design by Juan Minoprio.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
