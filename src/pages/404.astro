@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page Not Found — Juan Minoprio" description="The page you're looking for doesn't exist. Head back to the homepage.">
+  <Navbar />
+
+  <main id="main" class="min-h-screen flex items-center justify-center bg-cream px-6">
+    <div class="text-center max-w-md animate-fade-up">
+      <p class="font-body text-sm font-medium tracking-widest uppercase text-terracotta mb-4">
+        404
+      </p>
+      <h1 class="font-heading font-bold text-4xl md:text-5xl text-navy mb-4">
+        Page not found
+      </h1>
+      <p class="font-accent italic text-slate/70 text-lg mb-8">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-terracotta text-cream font-body font-medium px-7 py-3.5 rounded-full cursor-pointer hover:bg-terracotta/90 hover:shadow-lg hover:shadow-terracotta/20 transition-all duration-300"
+      >
+        Back to Home
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18m0 0l-6-6m6 6l-6 6" />
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Show navbar immediately on 404 page (no scroll trigger)
+  const navbar = document.getElementById("navbar");
+  if (navbar) {
+    navbar.classList.remove("opacity-0", "-translate-y-4");
+    navbar.classList.add("opacity-100", "translate-y-0");
+  }
+</script>
