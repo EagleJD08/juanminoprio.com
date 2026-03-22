@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Copy, Pencil, BookmarkPlus, Download, Check } from "lucide-react";
 import type { GeneratedPost, Goal, SavedPost } from "@lib/post-generator/types";
 import { savePost, generateId } from "@lib/post-generator/storage";
+import { trackEvent } from "@lib/post-generator/analytics";
 
 interface Props {
   post: GeneratedPost;
@@ -30,6 +31,7 @@ export default function ActionBar({
   const handleCopy = async () => {
     await navigator.clipboard.writeText(content);
     setCopied(true);
+    trackEvent("Copy Post");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -47,6 +49,7 @@ export default function ActionBar({
     const updated = savePost(newPost);
     onSavedPostsChange(updated);
     setSaved(true);
+    trackEvent("Save Post");
     setTimeout(() => setSaved(false), 2000);
   };
 
@@ -58,6 +61,7 @@ export default function ActionBar({
     a.download = `linkedin-post-${topic.slice(0, 30).replace(/\s+/g, "-")}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+    trackEvent("Download Post");
   };
 
   return (

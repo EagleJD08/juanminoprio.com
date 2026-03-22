@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { trackEvent } from "@lib/post-generator/analytics";
 
 interface Props {
   hookExamples: string[];
@@ -12,7 +13,11 @@ export default function LearnMore({ hookExamples, structureNotes }: Props) {
   return (
     <div className="bg-cream/50 rounded-xl border border-sand/30">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          const opening = !isOpen;
+          setIsOpen(opening);
+          if (opening) trackEvent("Open Learn More");
+        }}
         className="w-full flex items-center justify-between p-5 text-left"
       >
         <span className="text-sm font-medium text-navy">

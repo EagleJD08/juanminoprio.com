@@ -9,6 +9,7 @@ import type {
 } from "@lib/post-generator/types";
 import { generatePosts } from "@lib/post-generator/engine";
 import { getSavedPosts } from "@lib/post-generator/storage";
+import { trackEvent } from "@lib/post-generator/analytics";
 import TopicInput from "./TopicInput";
 import ContextForm from "./ContextForm";
 import PreviewCards from "./PreviewCards";
@@ -55,6 +56,7 @@ export default function PostGenerator() {
       const generated = generatePosts(input);
       setPosts(generated);
       setScreen("previews");
+      trackEvent("Generate Posts", { goal: g });
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [topic]
@@ -63,8 +65,9 @@ export default function PostGenerator() {
   const handleSelectPost = useCallback((index: number) => {
     setSelectedIndex(index);
     setScreen("fullPost");
+    trackEvent("Select Preview", { hook: posts[index].hookFormula.name });
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [posts]);
 
   const handleBackToPreviews = useCallback(() => {
     setSelectedIndex(null);
