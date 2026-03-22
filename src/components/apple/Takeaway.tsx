@@ -1,14 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { KEY_TAKEAWAYS, YOY_METRICS } from "@lib/apple-data";
-
-const FLYWHEEL_NODES = [
-  { label: "Hardware", sub: "Devices" },
-  { label: "Installed Base", sub: "2.5B" },
-  { label: "Services", sub: "$109.2B" },
-  { label: "Profit", sub: "$112B" },
-  { label: "R&D", sub: "$34.6B" },
-];
+import FlywheelDiagram from "./FlywheelDiagram";
 
 export default function Takeaway() {
   return (
@@ -60,59 +52,9 @@ export default function Takeaway() {
         </div>
 
         {/* Flywheel */}
-        <motion.div
-          className="mb-14"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <p className="text-center text-xs font-medium tracking-[0.15em] uppercase text-[#86868B] mb-6">
-            The Apple Flywheel
-          </p>
-          {/* Desktop: horizontal row */}
-          <div className="hidden sm:flex items-center justify-center gap-0 flex-wrap">
-            {FLYWHEEL_NODES.map((node, i) => (
-              <div key={node.label} className="flex items-center">
-                <div className="flex flex-col items-center px-3 py-2 rounded-lg bg-[#2C2C2E] min-w-[90px]">
-                  <span className="text-white text-xs font-semibold text-center leading-tight">
-                    {node.label}
-                  </span>
-                  <span className="text-[#86868B] text-[10px] mt-0.5 text-center">
-                    {node.sub}
-                  </span>
-                </div>
-                {i < FLYWHEEL_NODES.length - 1 && (
-                  <ArrowRight size={14} className="text-[#86868B] mx-1 flex-shrink-0" />
-                )}
-                {i === FLYWHEEL_NODES.length - 1 && (
-                  <div className="flex items-center ml-1">
-                    <ArrowRight size={14} className="text-[#007AFF] flex-shrink-0" />
-                    <span className="text-[#007AFF] text-[10px] ml-1 font-medium">back to Hardware</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          {/* Mobile: vertical list */}
-          <div className="flex sm:hidden flex-col items-center gap-1">
-            {FLYWHEEL_NODES.map((node, i) => (
-              <div key={node.label} className="flex flex-col items-center">
-                <div className="flex items-center gap-3 px-5 py-2.5 rounded-lg bg-[#2C2C2E] w-48">
-                  <div>
-                    <p className="text-white text-xs font-semibold">{node.label}</p>
-                    <p className="text-[#86868B] text-[10px]">{node.sub}</p>
-                  </div>
-                </div>
-                {i < FLYWHEEL_NODES.length - 1 && (
-                  <div className="w-px h-3 bg-[#3A3A3C]" />
-                )}
-              </div>
-            ))}
-            <div className="w-px h-3 bg-[#007AFF]" />
-            <span className="text-[#007AFF] text-[10px] font-medium">back to Hardware</span>
-          </div>
-        </motion.div>
+        <div className="mb-14">
+          <FlywheelDiagram />
+        </div>
 
         {/* YoY metric cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
