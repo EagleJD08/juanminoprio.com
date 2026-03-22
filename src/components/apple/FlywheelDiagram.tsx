@@ -5,7 +5,7 @@ import { useWindowWidth } from "@lib/hooks";
 
 // 5 nodes at clock positions: 12, ~2, ~4, ~8, ~10 o'clock
 // Circle centre is 50%, 50%. r ≈ 38% of container so nodes land near the edge.
-const R = 38; // % radius
+const R = 36; // % radius — slightly tighter so arrows have room
 
 function pos(angleDeg: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180; // -90 so 0° is 12 o'clock
@@ -43,25 +43,25 @@ function buildPaths(containerSize: number) {
     const x2 = cx + r * Math.cos(a2);
     const y2 = cy + r * Math.sin(a2);
 
-    // Move start/end to edge of each card (crude but effective)
+    // Move start/end to edge of each card
     const dx = x2 - x1;
     const dy = y2 - y1;
     const len = Math.sqrt(dx * dx + dy * dy);
     const ux = dx / len;
     const uy = dy / len;
-    const offset = 52; // pixels from centre to card edge
+    const offset = 60; // pixels from centre to card edge
     const sx = x1 + ux * offset;
     const sy = y1 + uy * offset;
     const ex = x2 - ux * offset;
     const ey = y2 - uy * offset;
 
-    // Control point: push outward from centre
+    // Control point: push outward from centre for curved arrows
     const midX = (sx + ex) / 2;
     const midY = (sy + ey) / 2;
     const toMidX = midX - cx;
     const toMidY = midY - cy;
     const toMidLen = Math.sqrt(toMidX * toMidX + toMidY * toMidY) || 1;
-    const bow = 30;
+    const bow = 40; // more pronounced curve
     const cpX = midX + (toMidX / toMidLen) * bow;
     const cpY = midY + (toMidY / toMidLen) * bow;
 
@@ -74,7 +74,7 @@ function buildPaths(containerSize: number) {
 function DesktopFlywheel() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const SIZE = 340;
+  const SIZE = 440;
   const paths = buildPaths(SIZE);
 
   return (
@@ -149,7 +149,7 @@ function DesktopFlywheel() {
               top,
               transform: "translate(-50%, -50%)",
               zIndex: 1,
-              width: 100,
+              width: 120,
             }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -171,7 +171,7 @@ function DesktopFlywheel() {
             >
               <p
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   fontWeight: 600,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -184,11 +184,11 @@ function DesktopFlywheel() {
               </p>
               <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 700,
                   color: "#1D1D1F",
                   margin: 0,
-                  marginTop: 2,
+                  marginTop: 3,
                   lineHeight: 1.2,
                 }}
               >

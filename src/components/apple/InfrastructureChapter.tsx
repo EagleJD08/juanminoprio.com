@@ -27,17 +27,24 @@ export default function InfrastructureChapter() {
   const narrative = (
     <>
       <p className="text-charcoal text-sm md:text-[0.925rem] leading-relaxed mb-3">
-        While Google, OpenAI, and Meta race to build the best AI model, Apple is building
-        something harder to replicate: <strong>the infrastructure to run AI on every device you own.</strong>
+        Everyone asks: <strong>"Where's Apple's ChatGPT?"</strong> That's the wrong question.
+        While Google, OpenAI, and Meta race to build the best AI model, Apple is building something
+        only a handful of companies on earth <em>can</em> build: <strong>the infrastructure to run AI
+        on every device you own.</strong>
       </p>
       <p className="text-charcoal text-sm md:text-[0.925rem] leading-relaxed mb-3">
-        Apple committed <strong>$600B to the US</strong> — TSMC Arizona producing 4nm chips
-        since January 2025, Houston AI server facilities in mass production, and an Intel 18A
-        chip partnership. 19 billion chips sourced from US factories.
+        Think about it: Apple has <strong>2.5 billion active devices</strong> with custom silicon
+        designed to run AI locally. They committed <strong>$600B to US manufacturing</strong> —
+        TSMC Arizona already producing 4nm chips, Houston AI server facilities in mass production,
+        an Intel 18A partnership for next-gen chips. 19 billion chips sourced from US factories in 2025 alone.
+      </p>
+      <p className="text-charcoal text-sm md:text-[0.925rem] leading-relaxed mb-3">
+        Models are commoditizing. Infrastructure isn't. Apple hasn't released a breakthrough
+        AI model because they don't need to — they're building the distribution layer that makes
+        <em> any</em> model run on <em>every</em> Apple device, on-device, private, and fast.
       </p>
       <p className="text-charcoal text-sm md:text-[0.925rem] leading-relaxed">
-        Apple hasn't released a breakthrough AI model. That's the point — they're building
-        the distribution layer: 2.5 billion devices with custom silicon, already in consumers' hands.
+        That's not falling behind. That's playing a different game entirely.
       </p>
     </>
   );
