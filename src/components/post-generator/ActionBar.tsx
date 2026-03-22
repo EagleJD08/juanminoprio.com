@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Copy, Pencil, BookmarkPlus, Download, Check } from "lucide-react";
-import type { GeneratedPost, Goal, SavedPost } from "@lib/post-generator/types";
+import type { DisplayPost, Goal, SavedPost } from "@lib/post-generator/types";
 import { savePost, generateId } from "@lib/post-generator/storage";
 import { trackEvent } from "@lib/post-generator/analytics";
 
 interface Props {
-  post: GeneratedPost;
+  post: DisplayPost;
   topic: string;
   goal: Goal;
   content: string; // current content (may be edited)
@@ -41,9 +41,9 @@ export default function ActionBar({
       topic,
       goal,
       content,
-      hookFormulaName: post.hookFormula.name,
-      structureName: post.structure.name,
-      steppsTotal: post.steppsScore.total,
+      hookFormulaName: post.hookFormulaName,
+      structureName: post.structureDisplayName,
+      steppsTotal: post.stepps.total,
       savedAt: new Date().toISOString(),
     };
     const updated = savePost(newPost);
