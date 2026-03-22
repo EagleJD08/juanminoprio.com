@@ -6,5 +6,5 @@ date: "2026-03-22"
 tags: ["AI tool", "LinkedIn", "content creation", "Gemini", "interactive"]
 featured: true
 externalUrl: "/tools/post-generator/"
-thumbnail: ""
+thumbnail: "/images/portfolio/post-generator-thumb.png"
 ---
