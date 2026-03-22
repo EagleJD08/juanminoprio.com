@@ -23,7 +23,7 @@ export async function generateAIPosts(
   angle: string,
   tone: Tone = "conversational"
 ): Promise<AIResponsePost[]> {
-  const response = await fetch("/.netlify/functions/generate-post", {
+  const response = await fetch("/api/generate-post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ topic, goal, angle, tone }),
@@ -64,7 +64,7 @@ export async function refinePost(
   postContent: string,
   action: RefineAction
 ): Promise<AIResponsePost> {
-  const response = await fetch("/.netlify/functions/generate-post", {
+  const response = await fetch("/api/generate-post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ mode: "refine", post: postContent, action }),
