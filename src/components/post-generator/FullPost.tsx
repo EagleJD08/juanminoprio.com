@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
-import type { DisplayPost, Goal, SavedPost } from "@lib/post-generator/types";
+import type { DisplayPost, Goal, SavedPost, RefineAction } from "@lib/post-generator/types";
 import { HOOK_FORMULAS } from "@lib/post-generator/hooks-data";
 import { POST_STRUCTURES } from "@lib/post-generator/structures-data";
 import BreakdownCard from "./BreakdownCard";
 import LearnMore from "./LearnMore";
 import ActionBar from "./ActionBar";
 import HighlightedPost from "./HighlightedPost";
+import RefineBar from "./RefineBar";
 
 interface Props {
   post: DisplayPost;
@@ -17,7 +18,55 @@ interface Props {
   onSavedPostsChange: (posts: SavedPost[]) => void;
   onBack: () => void;
   onStartOver: () => void;
+  onRefine: (action: RefineAction) => void;
+  isRefining: boolean;
+  refineCount: number;
+  maxRefines: number;
 }
+
+// === Hook Strength Meter ===
+
+const HOOK_CHAR_LIMIT = 210;
+
+function HookStrengthMeter({ content }: { content: string }) {
+  const hookLength = useMemo(() => {
+    // Extract first 1-2 sentences (up to second period, question mark, or exclamation)
+    const sentences = content.match(/[^.!?]+[.!?]+/g);
+    if (!sentences) return content.length;
+    const hook = sentences.slice(0, 2).join("");
+    return hook.length;
+  }, [content]);
+
+  const color =
+    hookLength <= 150
+      ? "text-sage"
+      : hookLength <= HOOK_CHAR_LIMIT
+        ? "text-warm-gold"
+        : "text-terracotta";
+
+  const bgColor =
+    hookLength <= 150
+      ? "bg-sage/10"
+      : hookLength <= HOOK_CHAR_LIMIT
+        ? "bg-warm-gold/10"
+        : "bg-terracotta/10";
+
+  const label =
+    hookLength <= HOOK_CHAR_LIMIT
+      ? "Hook visible before 'see more'"
+      : "Hook extends past 'see more'";
+
+  return (
+    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${bgColor} ${color}`}>
+      <span>{label}:</span>
+      <span className="font-mono">
+        {hookLength}/{HOOK_CHAR_LIMIT} chars
+      </span>
+    </div>
+  );
+}
+
+// === Main Component ===
 
 export default function FullPost({
   post,
@@ -28,6 +77,10 @@ export default function FullPost({
   onSavedPostsChange,
   onBack,
   onStartOver,
+  onRefine,
+  isRefining,
+  refineCount,
+  maxRefines,
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(post.fullContent);
@@ -69,14 +122,18 @@ export default function FullPost({
       </div>
 
       {/* Post Content */}
-      <div className="bg-white rounded-xl border border-sand/40 p-6 md:p-8 mb-6">
-        <div className="text-xs uppercase tracking-wider text-sand mb-4">
-          Generated Post
-          {post.source === "ai" && (
-            <span className="ml-2 px-2 py-0.5 bg-terracotta/10 text-terracotta rounded-full text-[10px] font-medium">
-              AI
-            </span>
-          )}
+      <div className="bg-white rounded-xl border border-sand/40 p-6 md:p-8 mb-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-xs uppercase tracking-wider text-sand">
+            Generated Post
+            {post.source === "ai" && (
+              <span className="ml-2 px-2 py-0.5 bg-terracotta/10 text-terracotta rounded-full text-[10px] font-medium">
+                AI
+              </span>
+            )}
+          </div>
+          {/* Hook Strength Meter */}
+          <HookStrengthMeter content={currentContent} />
         </div>
         {isEditing ? (
           <textarea
@@ -95,6 +152,18 @@ export default function FullPost({
           </div>
         )}
       </div>
+
+      {/* Refine Bar (AI posts only) */}
+      {post.source === "ai" && (
+        <div className="mb-6">
+          <RefineBar
+            onRefine={onRefine}
+            isRefining={isRefining}
+            refineCount={refineCount}
+            maxRefines={maxRefines}
+          />
+        </div>
+      )}
 
       {/* Action Bar */}
       <div className="mb-10">

@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import type { Goal } from "@lib/post-generator/types";
-import { GOALS } from "@lib/post-generator/types";
+import type { Goal, Tone } from "@lib/post-generator/types";
+import { GOALS, TONES } from "@lib/post-generator/types";
 
 interface Props {
   topic: string;
-  onSubmit: (goal: Goal, angle: string) => void;
+  onSubmit: (goal: Goal, angle: string, tone: Tone) => void;
   onBack: () => void;
 }
 
 export default function ContextForm({ topic, onSubmit, onBack }: Props) {
   const [goal, setGoal] = useState<Goal>("thought-leadership");
   const [angle, setAngle] = useState("");
+  const [tone, setTone] = useState<Tone>("conversational");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(goal, angle.trim());
+    onSubmit(goal, angle.trim(), tone);
   };
 
   return (
@@ -60,6 +61,31 @@ export default function ContextForm({ topic, onSubmit, onBack }: Props) {
           </select>
           <p className="text-xs text-sand mt-1">
             {GOALS.find((g) => g.id === goal)?.description}
+          </p>
+        </div>
+
+        {/* Tone selector */}
+        <div>
+          <label
+            htmlFor="tone"
+            className="block text-sm font-medium text-navy mb-2"
+          >
+            What tone do you want?
+          </label>
+          <select
+            id="tone"
+            value={tone}
+            onChange={(e) => setTone(e.target.value as Tone)}
+            className="w-full px-4 py-3 bg-white border-2 border-sand/60 rounded-xl focus:outline-none focus:border-terracotta transition-colors text-navy"
+          >
+            {TONES.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-sand mt-1">
+            {TONES.find((t) => t.id === tone)?.description}
           </p>
         </div>
 

@@ -3,12 +3,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import type {
   Screen,
   Goal,
+  Tone,
   DisplayPost,
   SavedPost,
   GenerationInput,
+  RefineAction,
 } from "@lib/post-generator/types";
 import { generatePosts } from "@lib/post-generator/engine";
-import { generateAIPosts } from "@lib/post-generator/gemini";
+import { generateAIPosts, refinePost } from "@lib/post-generator/gemini";
 import { aiToDisplayPost, ruleBasedToDisplayPost } from "@lib/post-generator/adapters";
 import { getSavedPosts } from "@lib/post-generator/storage";
 import { trackEvent } from "@lib/post-generator/analytics";
@@ -18,6 +20,9 @@ import PreviewCards from "./PreviewCards";
 import FullPost from "./FullPost";
 import SavedPosts from "./SavedPosts";
 import LoadingAnimation from "./LoadingAnimation";
+
+const MAX_REGENERATIONS = 3;
+const MAX_REFINES = 3;
 
 const pageVariants = {
   enter: { opacity: 0, y: 20 },
@@ -33,6 +38,7 @@ export default function PostGenerator() {
   const [topic, setTopic] = useState("");
   const [goal, setGoal] = useState<Goal>("thought-leadership");
   const [angle, setAngle] = useState("");
+  const [tone, setTone] = useState<Tone>("conversational");
 
   // Output state
   const [posts, setPosts] = useState<DisplayPost[]>([]);
@@ -41,6 +47,13 @@ export default function PostGenerator() {
   // Loading & fallback state
   const [isLoading, setIsLoading] = useState(false);
   const [fallbackMessage, setFallbackMessage] = useState<string | null>(null);
+
+  // Regeneration state (v3)
+  const [regenerationCount, setRegenerationCount] = useState(0);
+
+  // Refine state (v3)
+  const [isRefining, setIsRefining] = useState(false);
+  const [refineCount, setRefineCount] = useState(0);
 
   // Saved posts drawer
   const [savedPosts, setSavedPosts] = useState<SavedPost[]>(() =>
@@ -55,26 +68,24 @@ export default function PostGenerator() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const handleContextSubmit = useCallback(
-    async (g: Goal, a: string) => {
+  const handleGenerate = useCallback(
+    async (g: Goal, a: string, t: Tone) => {
       setGoal(g);
       setAngle(a);
+      setTone(t);
       setFallbackMessage(null);
       setIsLoading(true);
-      setScreen("previews"); // show loading animation in the previews screen area
+      setScreen("previews");
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      const input: GenerationInput = { topic, goal: g, angle: a };
-
       try {
-        // Try AI generation first
-        const aiPosts = await generateAIPosts(topic, g, a);
+        const aiPosts = await generateAIPosts(topic, g, a, t);
         const displayPosts = aiPosts.map(aiToDisplayPost);
         setPosts(displayPosts);
-        trackEvent("Generate Posts", { goal: g, source: "ai" });
+        trackEvent("Generate Posts", { goal: g, tone: t, source: "ai" });
       } catch (err) {
-        // Fall back to rule-based engine
         console.warn("AI generation failed, falling back to rule-based engine:", err);
+        const input: GenerationInput = { topic, goal: g, angle: a };
         const generated = generatePosts(input);
         const displayPosts = generated.map(ruleBasedToDisplayPost);
         setPosts(displayPosts);
@@ -89,9 +100,24 @@ export default function PostGenerator() {
     [topic]
   );
 
+  const handleContextSubmit = useCallback(
+    (g: Goal, a: string, t: Tone) => {
+      setRegenerationCount(0);
+      handleGenerate(g, a, t);
+    },
+    [handleGenerate]
+  );
+
+  const handleRegenerate = useCallback(() => {
+    setRegenerationCount((prev) => prev + 1);
+    handleGenerate(goal, angle, tone);
+    trackEvent("Regenerate Posts", { attempt: regenerationCount + 1 });
+  }, [goal, angle, tone, regenerationCount, handleGenerate]);
+
   const handleSelectPost = useCallback(
     (index: number) => {
       setSelectedIndex(index);
+      setRefineCount(0);
       setScreen("fullPost");
       trackEvent("Select Preview", { hook: posts[index].hookFormulaName });
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -99,8 +125,32 @@ export default function PostGenerator() {
     [posts]
   );
 
+  const handleRefine = useCallback(
+    async (action: RefineAction) => {
+      if (selectedIndex === null) return;
+      const currentPost = posts[selectedIndex];
+
+      setIsRefining(true);
+      try {
+        const refined = await refinePost(currentPost.fullContent, action);
+        const refinedDisplay = aiToDisplayPost(refined);
+        const updatedPosts = [...posts];
+        updatedPosts[selectedIndex] = refinedDisplay;
+        setPosts(updatedPosts);
+        setRefineCount((prev) => prev + 1);
+        trackEvent("Refine Post", { action, attempt: refineCount + 1 });
+      } catch (err) {
+        console.error("Refinement failed:", err);
+      } finally {
+        setIsRefining(false);
+      }
+    },
+    [selectedIndex, posts, refineCount]
+  );
+
   const handleBackToPreviews = useCallback(() => {
     setSelectedIndex(null);
+    setRefineCount(0);
     setScreen("previews");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -109,9 +159,12 @@ export default function PostGenerator() {
     setTopic("");
     setGoal("thought-leadership");
     setAngle("");
+    setTone("conversational");
     setPosts([]);
     setSelectedIndex(null);
     setFallbackMessage(null);
+    setRegenerationCount(0);
+    setRefineCount(0);
     setScreen("topic");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -174,6 +227,9 @@ export default function PostGenerator() {
                   posts={posts}
                   onSelect={handleSelectPost}
                   onStartOver={handleStartOver}
+                  onRegenerate={handleRegenerate}
+                  regenerationCount={regenerationCount}
+                  maxRegenerations={MAX_REGENERATIONS}
                 />
               </>
             )}
@@ -198,6 +254,10 @@ export default function PostGenerator() {
               onSavedPostsChange={setSavedPosts}
               onBack={handleBackToPreviews}
               onStartOver={handleStartOver}
+              onRefine={handleRefine}
+              isRefining={isRefining}
+              refineCount={refineCount}
+              maxRefines={MAX_REFINES}
             />
           </motion.div>
         )}

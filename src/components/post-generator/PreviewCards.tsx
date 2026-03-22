@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, RefreshCw } from "lucide-react";
 import type { DisplayPost } from "@lib/post-generator/types";
 
 interface Props {
   posts: DisplayPost[];
   onSelect: (index: number) => void;
   onStartOver: () => void;
+  onRegenerate: () => void;
+  regenerationCount: number;
+  maxRegenerations: number;
 }
 
 const ACCENT_COLORS = [
@@ -26,7 +29,16 @@ const ACCENT_COLORS = [
   },
 ];
 
-export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
+export default function PreviewCards({
+  posts,
+  onSelect,
+  onStartOver,
+  onRegenerate,
+  regenerationCount,
+  maxRegenerations,
+}: Props) {
+  const canRegenerate = regenerationCount < maxRegenerations;
+
   return (
     <div className="py-8">
       <div className="text-center mb-10">
@@ -74,7 +86,19 @@ export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
         ))}
       </div>
 
-      <div className="text-center mt-8">
+      <div className="flex items-center justify-center gap-6 mt-8">
+        {canRegenerate && (
+          <button
+            onClick={onRegenerate}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-terracotta bg-terracotta/10 rounded-lg hover:bg-terracotta/20 transition-colors"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Try 3 more
+            <span className="text-xs text-terracotta/60">
+              ({regenerationCount}/{maxRegenerations})
+            </span>
+          </button>
+        )}
         <button
           onClick={onStartOver}
           className="inline-flex items-center gap-2 text-sm text-slate hover:text-navy transition-colors"

@@ -1,5 +1,5 @@
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
-import { buildSystemPrompt, buildUserPrompt } from "../../src/lib/post-generator/prompt.js";
+import { buildSystemPrompt, buildUserPrompt, buildRefinePrompt } from "../../src/lib/post-generator/prompt.js";
 
 // === Rate Limiter (in-memory, resets on cold start) ===
 
@@ -49,18 +49,56 @@ function corsHeaders(origin: string | undefined): Record<string, string> {
 
 // === Input Validation ===
 
-interface RequestBody {
+interface GenerateRequestBody {
+  mode?: "generate";
   topic: string;
   goal: string;
   angle: string;
+  tone?: string;
 }
+
+interface RefineRequestBody {
+  mode: "refine";
+  post: string;
+  action: string;
+}
+
+type RequestBody = GenerateRequestBody | RefineRequestBody;
+
+const VALID_GOALS = [
+  "thought-leadership",
+  "engagement",
+  "share-lesson",
+  "start-conversation",
+  "showcase-expertise",
+];
+
+const VALID_TONES = ["conversational", "bold", "analytical", "personal"];
+const VALID_REFINE_ACTIONS = ["shorter", "hook", "personal"];
 
 function validateInput(body: unknown): { valid: true; data: RequestBody } | { valid: false; error: string } {
   if (!body || typeof body !== "object") {
     return { valid: false, error: "Request body must be a JSON object." };
   }
 
-  const { topic, goal, angle } = body as Record<string, unknown>;
+  const obj = body as Record<string, unknown>;
+
+  // Refine mode
+  if (obj.mode === "refine") {
+    if (typeof obj.post !== "string" || obj.post.trim().length === 0) {
+      return { valid: false, error: "Post content is required for refinement." };
+    }
+    if (typeof obj.action !== "string" || !VALID_REFINE_ACTIONS.includes(obj.action)) {
+      return { valid: false, error: `Action must be one of: ${VALID_REFINE_ACTIONS.join(", ")}` };
+    }
+    return {
+      valid: true,
+      data: { mode: "refine", post: obj.post.trim(), action: obj.action } as RefineRequestBody,
+    };
+  }
+
+  // Generate mode (default)
+  const { topic, goal, angle, tone } = obj;
 
   if (typeof topic !== "string" || topic.trim().length === 0) {
     return { valid: false, error: "Topic is required." };
@@ -69,15 +107,8 @@ function validateInput(body: unknown): { valid: true; data: RequestBody } | { va
     return { valid: false, error: "Topic must be 500 characters or less." };
   }
 
-  const validGoals = [
-    "thought-leadership",
-    "engagement",
-    "share-lesson",
-    "start-conversation",
-    "showcase-expertise",
-  ];
-  if (typeof goal !== "string" || !validGoals.includes(goal)) {
-    return { valid: false, error: `Goal must be one of: ${validGoals.join(", ")}` };
+  if (typeof goal !== "string" || !VALID_GOALS.includes(goal)) {
+    return { valid: false, error: `Goal must be one of: ${VALID_GOALS.join(", ")}` };
   }
 
   if (typeof angle !== "string") {
@@ -87,9 +118,18 @@ function validateInput(body: unknown): { valid: true; data: RequestBody } | { va
     return { valid: false, error: "Angle must be 200 characters or less." };
   }
 
+  if (tone !== undefined && (typeof tone !== "string" || !VALID_TONES.includes(tone))) {
+    return { valid: false, error: `Tone must be one of: ${VALID_TONES.join(", ")}` };
+  }
+
   return {
     valid: true,
-    data: { topic: topic.trim(), goal, angle: angle.trim() },
+    data: {
+      topic: topic.trim(),
+      goal,
+      angle: angle.trim(),
+      tone: (tone as string) || "conversational",
+    } as GenerateRequestBody,
   };
 }
 
@@ -114,14 +154,11 @@ interface GeminiResponse {
 }
 
 async function callGemini(
-  topic: string,
-  goal: string,
-  angle: string,
+  systemPrompt: string,
+  userPrompt: string,
+  temperature: number,
   apiKey: string
 ): Promise<{ success: true; data: unknown } | { success: false; error: string }> {
-  const systemPrompt = buildSystemPrompt();
-  const userPrompt = buildUserPrompt(topic, goal as any, angle);
-
   const requestBody = {
     system_instruction: {
       parts: [{ text: systemPrompt }],
@@ -133,7 +170,7 @@ async function callGemini(
       },
     ],
     generationConfig: {
-      temperature: 0.8,
+      temperature,
       maxOutputTokens: 8192,
       responseMimeType: "application/json",
     },
@@ -171,11 +208,6 @@ async function callGemini(
     }
 
     const parsed = JSON.parse(text);
-
-    if (!parsed.posts || !Array.isArray(parsed.posts) || parsed.posts.length !== 3) {
-      return { success: false, error: "Invalid response structure from Gemini" };
-    }
-
     return { success: true, data: parsed };
   } catch (err) {
     console.error("Gemini call failed:", err);
@@ -245,7 +277,6 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
 
   // Check for API key
   const apiKey = process.env.GOOGLE_GEMINI_KEY;
-  // Debug logging removed
   if (!apiKey) {
     console.error("GEMINI_API_KEY not set in environment");
     return {
@@ -260,9 +291,45 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
     };
   }
 
-  // Call Gemini
-  const { data: inputData } = validation;
-  const result = await callGemini(inputData.topic, inputData.goal, inputData.angle, apiKey);
+  const inputData = validation.data;
+
+  // === Refine Mode ===
+  if (inputData.mode === "refine") {
+    const systemPrompt = buildSystemPrompt();
+    const userPrompt = buildRefinePrompt(inputData.post, inputData.action as any);
+
+    const result = await callGemini(systemPrompt, userPrompt, 0.5, apiKey);
+
+    if (!result.success) {
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: "ai_error",
+          message: "Refinement failed. Please try again.",
+          fallback: false,
+        }),
+      };
+    }
+
+    return {
+      statusCode: 200,
+      headers: { ...headers, "X-RateLimit-Remaining": String(rateCheck.remaining) },
+      body: JSON.stringify({ success: true, post: result.data }),
+    };
+  }
+
+  // === Generate Mode ===
+  const systemPrompt = buildSystemPrompt();
+  const userPrompt = buildUserPrompt(
+    inputData.topic,
+    inputData.goal as any,
+    inputData.angle,
+    (inputData.tone as any) || "conversational"
+  );
+
+  const result = await callGemini(systemPrompt, userPrompt, 0.7, apiKey);
 
   if (!result.success) {
     return {
@@ -277,9 +344,24 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
     };
   }
 
+  // Validate generate response has posts array
+  const data = result.data as any;
+  if (!data.posts || !Array.isArray(data.posts) || data.posts.length !== 3) {
+    return {
+      statusCode: 502,
+      headers,
+      body: JSON.stringify({
+        success: false,
+        error: "ai_error",
+        message: "AI returned an invalid response. Using fallback.",
+        fallback: true,
+      }),
+    };
+  }
+
   return {
     statusCode: 200,
     headers: { ...headers, "X-RateLimit-Remaining": String(rateCheck.remaining) },
-    body: JSON.stringify({ success: true, posts: (result.data as any).posts }),
+    body: JSON.stringify({ success: true, posts: data.posts }),
   };
 };

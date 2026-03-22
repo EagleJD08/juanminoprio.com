@@ -172,6 +172,53 @@ export const GOALS: GoalOption[] = [
   },
 ];
 
+// === Tone (v3) ===
+
+export type Tone =
+  | "conversational"
+  | "bold"
+  | "analytical"
+  | "personal";
+
+export interface ToneOption {
+  id: Tone;
+  label: string;
+  description: string;
+}
+
+export const TONES: ToneOption[] = [
+  {
+    id: "conversational",
+    label: "Conversational",
+    description: "Like explaining to a smart friend — casual, approachable",
+  },
+  {
+    id: "bold",
+    label: "Bold & Provocative",
+    description: "Lead with your strongest opinion — challenge assumptions",
+  },
+  {
+    id: "analytical",
+    label: "Analytical & Data-Heavy",
+    description: "Ground every claim in numbers, studies, or named examples",
+  },
+  {
+    id: "personal",
+    label: "Personal & Reflective",
+    description: "Anchor in a specific personal experience — honest and genuine",
+  },
+];
+
+// === Refine (v3) ===
+
+export type RefineAction = "shorter" | "hook" | "personal";
+
+export interface RefineRequest {
+  mode: "refine";
+  post: string;
+  action: RefineAction;
+}
+
 // === AI Engine Types (v2) ===
 
 export interface Highlight {
