@@ -1,4 +1,5 @@
-import type { Context } from "@netlify/functions";
+import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
+import { buildSystemPrompt, buildUserPrompt } from "../../src/lib/post-generator/prompt.js";
 
 // === Rate Limiter (in-memory, resets on cold start) ===
 
@@ -32,28 +33,19 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
 
 const ALLOWED_ORIGIN = "https://juanminoprio.com";
 
-function corsHeaders(origin: string | null): Record<string, string> {
-  // In production, only allow the real domain.
-  // netlify dev proxies requests so origin may be localhost — allow it for local dev.
+function corsHeaders(origin: string | undefined): Record<string, string> {
   const isAllowed =
     origin === ALLOWED_ORIGIN ||
     origin === "https://www.juanminoprio.com" ||
-    (origin !== null && origin.startsWith("http://localhost"));
+    (origin !== undefined && origin.startsWith("http://localhost"));
 
   return {
-    "Access-Control-Allow-Origin": isAllowed ? (origin as string) : ALLOWED_ORIGIN,
+    "Access-Control-Allow-Origin": isAllowed ? origin! : ALLOWED_ORIGIN,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400",
   };
 }
-
-// === System Prompt (embedded at build time via import) ===
-// NOTE: Netlify Functions can import from src/ if we configure the bundler,
-// but to keep it simple and avoid path alias issues, we inline the prompt builder logic.
-// The prompt is long but it's just a string — no runtime cost.
-
-import { buildSystemPrompt, buildUserPrompt } from "../../src/lib/post-generator/prompt.js";
 
 // === Input Validation ===
 
@@ -104,7 +96,7 @@ function validateInput(body: unknown): { valid: true; data: RequestBody } | { va
 // === Gemini API Call ===
 
 const GEMINI_ENDPOINT =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
 interface GeminiResponse {
   candidates?: Array<{
@@ -142,7 +134,7 @@ async function callGemini(
     ],
     generationConfig: {
       temperature: 0.8,
-      maxOutputTokens: 4096,
+      maxOutputTokens: 8192,
       responseMimeType: "application/json",
     },
   };
@@ -178,10 +170,8 @@ async function callGemini(
       return { success: false, error: "No content in Gemini response" };
     }
 
-    // Parse the JSON response
     const parsed = JSON.parse(text);
 
-    // Basic validation: must have a posts array with 3 items
     if (!parsed.posts || !Array.isArray(parsed.posts) || parsed.posts.length !== 3) {
       return { success: false, error: "Invalid response structure from Gemini" };
     }
@@ -196,123 +186,100 @@ async function callGemini(
   }
 }
 
-// === Handler ===
+// === Handler (v1 format for netlify dev compatibility) ===
 
-export default async function handler(req: Request, context: Context) {
-  const origin = req.headers.get("origin");
-  const headers = corsHeaders(origin);
+export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  const origin = event.headers["origin"] || event.headers["Origin"];
+  const headers = { ...corsHeaders(origin), "Content-Type": "application/json" };
 
   // Handle CORS preflight
-  if (req.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers });
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers, body: "" };
   }
 
   // Only accept POST
-  if (req.method !== "POST") {
-    return new Response(
-      JSON.stringify({ success: false, error: "method_not_allowed", message: "Use POST." }),
-      { status: 405, headers: { ...headers, "Content-Type": "application/json" } }
-    );
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ success: false, error: "method_not_allowed", message: "Use POST." }),
+    };
   }
 
   // Rate limiting
-  const clientIp = context.ip || req.headers.get("x-forwarded-for") || "unknown";
+  const clientIp = event.headers["x-forwarded-for"] || event.headers["client-ip"] || "unknown";
   const rateCheck = checkRateLimit(clientIp);
   if (!rateCheck.allowed) {
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 429,
+      headers: { ...headers, "Retry-After": "3600" },
+      body: JSON.stringify({
         success: false,
         error: "rate_limit",
         message: "You've used your free generations for now — try again in an hour.",
         fallback: true,
       }),
-      {
-        status: 429,
-        headers: {
-          ...headers,
-          "Content-Type": "application/json",
-          "Retry-After": "3600",
-        },
-      }
-    );
+    };
   }
 
   // Parse and validate input
   let body: unknown;
   try {
-    body = await req.json();
+    body = JSON.parse(event.body || "");
   } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: "invalid_json", message: "Invalid JSON body." }),
-      { status: 400, headers: { ...headers, "Content-Type": "application/json" } }
-    );
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ success: false, error: "invalid_json", message: "Invalid JSON body." }),
+    };
   }
 
   const validation = validateInput(body);
   if (!validation.valid) {
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: "validation_error",
-        message: validation.error,
-      }),
-      { status: 400, headers: { ...headers, "Content-Type": "application/json" } }
-    );
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ success: false, error: "validation_error", message: validation.error }),
+    };
   }
 
   // Check for API key
-  const apiKey = Netlify.env.get("GEMINI_API_KEY");
+  const apiKey = process.env.GOOGLE_GEMINI_KEY;
+  // Debug logging removed
   if (!apiKey) {
     console.error("GEMINI_API_KEY not set in environment");
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 503,
+      headers,
+      body: JSON.stringify({
         success: false,
         error: "server_error",
         message: "AI generation is not configured. Using fallback.",
         fallback: true,
       }),
-      { status: 503, headers: { ...headers, "Content-Type": "application/json" } }
-    );
+    };
   }
 
   // Call Gemini
   const { data: inputData } = validation;
-  const result = await callGemini(
-    inputData.topic,
-    inputData.goal,
-    inputData.angle,
-    apiKey
-  );
+  const result = await callGemini(inputData.topic, inputData.goal, inputData.angle, apiKey);
 
   if (!result.success) {
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 502,
+      headers,
+      body: JSON.stringify({
         success: false,
         error: "ai_error",
         message: "AI generation failed. Using fallback.",
         fallback: true,
       }),
-      { status: 502, headers: { ...headers, "Content-Type": "application/json" } }
-    );
+    };
   }
 
-  // Success
-  return new Response(
-    JSON.stringify({
-      success: true,
-      posts: (result.data as any).posts,
-    }),
-    {
-      status: 200,
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-        "X-RateLimit-Remaining": String(rateCheck.remaining),
-      },
-    }
-  );
-}
-
-export const config = {
-  path: "/.netlify/functions/generate-post",
+  return {
+    statusCode: 200,
+    headers: { ...headers, "X-RateLimit-Remaining": String(rateCheck.remaining) },
+    body: JSON.stringify({ success: true, posts: (result.data as any).posts }),
+  };
 };
