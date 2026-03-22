@@ -1,17 +1,29 @@
 import { motion } from "framer-motion";
 import { RotateCcw } from "lucide-react";
-import type { GeneratedPost } from "@lib/post-generator/types";
+import type { DisplayPost } from "@lib/post-generator/types";
 
 interface Props {
-  posts: GeneratedPost[];
+  posts: DisplayPost[];
   onSelect: (index: number) => void;
   onStartOver: () => void;
 }
 
 const ACCENT_COLORS = [
-  { border: "border-terracotta", hoverBorder: "hover:border-terracotta", badge: "bg-terracotta/10 text-terracotta" },
-  { border: "border-dusty-blue", hoverBorder: "hover:border-dusty-blue", badge: "bg-dusty-blue/10 text-dusty-blue" },
-  { border: "border-sage", hoverBorder: "hover:border-sage", badge: "bg-sage/10 text-sage" },
+  {
+    border: "border-terracotta",
+    hoverBorder: "hover:border-terracotta",
+    badge: "bg-terracotta/10 text-terracotta",
+  },
+  {
+    border: "border-dusty-blue",
+    hoverBorder: "hover:border-dusty-blue",
+    badge: "bg-dusty-blue/10 text-dusty-blue",
+  },
+  {
+    border: "border-sage",
+    hoverBorder: "hover:border-sage",
+    badge: "bg-sage/10 text-sage",
+  },
 ];
 
 export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
@@ -41,7 +53,7 @@ export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
             <span
               className={`inline-block px-3 py-1 text-xs font-medium rounded-full mb-4 ${ACCENT_COLORS[i].badge}`}
             >
-              {post.hookFormula.name}
+              {post.hookFormulaName}
             </span>
 
             {/* Hook line preview */}
@@ -51,11 +63,11 @@ export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
 
             {/* Structure + STEPPS */}
             <div className="flex items-center justify-between text-xs text-slate">
-              <span>{post.structure.displayName}</span>
+              <span>{post.structureDisplayName}</span>
               <span
                 className={`px-2 py-0.5 rounded-full ${ACCENT_COLORS[i].badge}`}
               >
-                {post.steppsScore.total}/6 STEPPS
+                {post.stepps.total}/6 STEPPS
               </span>
             </div>
           </motion.button>
