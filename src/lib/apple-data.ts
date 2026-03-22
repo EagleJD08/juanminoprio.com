@@ -193,7 +193,14 @@ export const Q1_CALLOUTS: Q1Callout[] = [
   { metric: "Greater China", value: "$25.5B", change: "+38%", color: "#FF9500" },
 ];
 
-// ── Profit Data ────────────────────────────────────────
+// ── Profit / Waterfall Data ────────────────────────────
+
+export const EXPENSE_CATEGORIES = [
+  { id: "cogs", name: "Cost of Sales", amount: 221.0 },
+  { id: "rd", name: "R&D", amount: 34.6 },
+  { id: "sga", name: "SG&A", amount: 27.1 },
+  { id: "taxes", name: "Taxes & Other", amount: 21.5 },
+];
 
 export const MARGIN_COMPARISON = [
   { name: "Products", margin: 36.8, color: "#86868B" },
