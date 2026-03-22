@@ -3,11 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import type {
   Screen,
   Goal,
-  GeneratedPost,
+  DisplayPost,
   SavedPost,
   GenerationInput,
 } from "@lib/post-generator/types";
 import { generatePosts } from "@lib/post-generator/engine";
+import { generateAIPosts } from "@lib/post-generator/gemini";
+import { aiToDisplayPost, ruleBasedToDisplayPost } from "@lib/post-generator/adapters";
 import { getSavedPosts } from "@lib/post-generator/storage";
 import { trackEvent } from "@lib/post-generator/analytics";
 import TopicInput from "./TopicInput";
@@ -15,6 +17,7 @@ import ContextForm from "./ContextForm";
 import PreviewCards from "./PreviewCards";
 import FullPost from "./FullPost";
 import SavedPosts from "./SavedPosts";
+import LoadingAnimation from "./LoadingAnimation";
 
 const pageVariants = {
   enter: { opacity: 0, y: 20 },
@@ -32,8 +35,12 @@ export default function PostGenerator() {
   const [angle, setAngle] = useState("");
 
   // Output state
-  const [posts, setPosts] = useState<GeneratedPost[]>([]);
+  const [posts, setPosts] = useState<DisplayPost[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  // Loading & fallback state
+  const [isLoading, setIsLoading] = useState(false);
+  const [fallbackMessage, setFallbackMessage] = useState<string | null>(null);
 
   // Saved posts drawer
   const [savedPosts, setSavedPosts] = useState<SavedPost[]>(() =>
@@ -49,25 +56,48 @@ export default function PostGenerator() {
   }, []);
 
   const handleContextSubmit = useCallback(
-    (g: Goal, a: string) => {
+    async (g: Goal, a: string) => {
       setGoal(g);
       setAngle(a);
-      const input: GenerationInput = { topic, goal: g, angle: a };
-      const generated = generatePosts(input);
-      setPosts(generated);
-      setScreen("previews");
-      trackEvent("Generate Posts", { goal: g });
+      setFallbackMessage(null);
+      setIsLoading(true);
+      setScreen("previews"); // show loading animation in the previews screen area
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const input: GenerationInput = { topic, goal: g, angle: a };
+
+      try {
+        // Try AI generation first
+        const aiPosts = await generateAIPosts(topic, g, a);
+        const displayPosts = aiPosts.map(aiToDisplayPost);
+        setPosts(displayPosts);
+        trackEvent("Generate Posts", { goal: g, source: "ai" });
+      } catch (err) {
+        // Fall back to rule-based engine
+        console.warn("AI generation failed, falling back to rule-based engine:", err);
+        const generated = generatePosts(input);
+        const displayPosts = generated.map(ruleBasedToDisplayPost);
+        setPosts(displayPosts);
+        setFallbackMessage(
+          "AI generation temporarily unavailable. Using our built-in framework engine instead."
+        );
+        trackEvent("Generate Posts", { goal: g, source: "rule-based-fallback" });
+      } finally {
+        setIsLoading(false);
+      }
     },
     [topic]
   );
 
-  const handleSelectPost = useCallback((index: number) => {
-    setSelectedIndex(index);
-    setScreen("fullPost");
-    trackEvent("Select Preview", { hook: posts[index].hookFormula.name });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [posts]);
+  const handleSelectPost = useCallback(
+    (index: number) => {
+      setSelectedIndex(index);
+      setScreen("fullPost");
+      trackEvent("Select Preview", { hook: posts[index].hookFormulaName });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [posts]
+  );
 
   const handleBackToPreviews = useCallback(() => {
     setSelectedIndex(null);
@@ -81,6 +111,7 @@ export default function PostGenerator() {
     setAngle("");
     setPosts([]);
     setSelectedIndex(null);
+    setFallbackMessage(null);
     setScreen("topic");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -130,11 +161,22 @@ export default function PostGenerator() {
             exit="exit"
             transition={{ duration: 0.3 }}
           >
-            <PreviewCards
-              posts={posts}
-              onSelect={handleSelectPost}
-              onStartOver={handleStartOver}
-            />
+            {isLoading ? (
+              <LoadingAnimation />
+            ) : (
+              <>
+                {fallbackMessage && (
+                  <div className="mb-6 p-4 bg-sand/10 border border-sand/30 rounded-xl text-sm text-slate text-center">
+                    {fallbackMessage}
+                  </div>
+                )}
+                <PreviewCards
+                  posts={posts}
+                  onSelect={handleSelectPost}
+                  onStartOver={handleStartOver}
+                />
+              </>
+            )}
           </motion.div>
         )}
 
