@@ -171,3 +171,45 @@ export const GOALS: GoalOption[] = [
     description: "Demonstrate deep knowledge in your domain",
   },
 ];
+
+// === AI Engine Types (v2) ===
+
+export interface Highlight {
+  text: string; // exact substring from fullContent (must be unique within the post)
+  type: "hook" | "stepps" | "cta";
+  label: string;
+  explanation: string;
+}
+
+export interface AIResponsePost {
+  hookFormulaName: string;
+  hookFormulaId: HookFormulaId;
+  structureName: string;
+  structureId: PostStructureId;
+  hookLine: string;
+  fullContent: string;
+  highlights: Highlight[];
+  steppsScore: {
+    total: number;
+    hit: STEPPSPrincipleId[];
+    missed: STEPPSPrincipleId[];
+  };
+  steppsExplanations: Record<STEPPSPrincipleId, string>;
+}
+
+export interface DisplayPost {
+  source: "ai" | "rule-based";
+  hookFormulaName: string;
+  hookFormulaId: HookFormulaId;
+  structureDisplayName: string;
+  structureId: PostStructureId;
+  hookLine: string;
+  fullContent: string;
+  highlights: Highlight[]; // empty array for rule-based posts
+  stepps: {
+    total: number;
+    max: 6;
+    hit: { id: STEPPSPrincipleId; name: string; explanation: string }[];
+    missed: { id: STEPPSPrincipleId; name: string; tip: string }[];
+  };
+}
