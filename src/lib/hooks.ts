@@ -19,6 +19,15 @@ export function useCountUp(target: number, duration = 1500, trigger = true) {
 
   useEffect(() => {
     if (!trigger) return;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setCount(target);
+      return;
+    }
     const steps = 50;
     const increment = target / steps;
     let step = 0;

@@ -64,6 +64,11 @@ export default function ServicesChapter() {
           {count >= 1000 ? "1B+" : `${count}M+`}
         </span>
         <p className="text-xs text-[#86868B] mt-1">Paid Subscriptions</p>
+        <div className="flex justify-center mt-2">
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-[#e8f5e9] text-[#2e7d32]">
+            Q1 FY2026: +14% YoY — another record quarter
+          </span>
+        </div>
       </div>
 
       {/* Line chart — Services revenue growth */}

@@ -147,7 +147,33 @@ export default function Takeaway() {
         >
           <p className="text-white text-sm font-semibold mb-2">Built by Juan Minoprio</p>
           <p className="text-[#86868B] text-xs leading-relaxed">
-            Data: Apple FY2025 10-K, Q1 FY2026 Earnings Release, Apple Newsroom
+            Data:{" "}
+            <a
+              href="https://investor.apple.com/sec-filings/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#86868B] hover:text-white transition-colors"
+            >
+              Apple FY2025 10-K
+            </a>
+            ,{" "}
+            <a
+              href="https://www.apple.com/newsroom/2026/01/apple-reports-first-quarter-results/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#86868B] hover:text-white transition-colors"
+            >
+              Q1 FY2026 Earnings Release
+            </a>
+            ,{" "}
+            <a
+              href="https://www.apple.com/newsroom/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#86868B] hover:text-white transition-colors"
+            >
+              Apple Newsroom
+            </a>
           </p>
         </motion.div>
       </div>
