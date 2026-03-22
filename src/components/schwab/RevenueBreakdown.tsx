@@ -8,7 +8,7 @@ import {
   Cell,
   LabelList,
 } from "recharts";
-import ChapterLayout from "./ChapterLayout";
+import ChapterLayout from "../shared/ChapterLayout";
 import { REVENUE_STREAMS, formatBillions } from "@lib/schwab-data";
 import { useWindowWidth } from "@lib/hooks";
 

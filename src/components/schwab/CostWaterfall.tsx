@@ -9,7 +9,7 @@ import {
   LabelList,
 } from "recharts";
 import { motion } from "framer-motion";
-import ChapterLayout from "./ChapterLayout";
+import ChapterLayout from "../shared/ChapterLayout";
 import {
   TOTAL_REVENUE,
   NET_INCOME,

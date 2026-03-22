@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ChapterLayout from "./ChapterLayout";
+import ChapterLayout from "../shared/ChapterLayout";
 import { useCountUp } from "@lib/hooks";
 import { DAILY_AVG_TRADES } from "@lib/schwab-data";
 

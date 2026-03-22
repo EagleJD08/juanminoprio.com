@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import ChapterLayout from "./ChapterLayout";
+import ChapterLayout from "../shared/ChapterLayout";
 
 const nodeVariant: Variants = {
   hidden: { opacity: 0, y: 15 },
