@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+import HookSection from "@components/schwab/HookSection";
+import RevenueBreakdown from "@components/schwab/RevenueBreakdown";
+import NetInterest from "@components/schwab/NetInterest";
+import AssetManagement from "@components/schwab/AssetManagement";
+import TradingRevenue from "@components/schwab/TradingRevenue";
+import CostWaterfall from "@components/schwab/CostWaterfall";
+import Takeaway from "@components/schwab/Takeaway";
+import ProgressIndicator from "@components/schwab/ProgressIndicator";
+---
+
+<BaseLayout
+  title="How Charles Schwab Makes Money — Juan Minoprio"
+  description="An interactive data story breaking down Charles Schwab's $23.9B revenue model. Explore how one of the world's largest financial companies actually makes money."
+>
+  <Navbar />
+  <ProgressIndicator client:load totalChapters={7} />
+
+  <main id="main">
+    <HookSection client:load />
+    <RevenueBreakdown client:visible />
+    <NetInterest client:visible />
+    <AssetManagement client:visible />
+    <TradingRevenue client:visible />
+    <CostWaterfall client:visible />
+    <Takeaway client:visible />
+  </main>
+
+  <Footer />
+</BaseLayout>
