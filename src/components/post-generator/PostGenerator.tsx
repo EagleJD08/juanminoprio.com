@@ -44,6 +44,7 @@ export default function PostGenerator() {
   const handleTopicSubmit = useCallback((t: string) => {
     setTopic(t);
     setScreen("context");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleContextSubmit = useCallback(
@@ -54,6 +55,7 @@ export default function PostGenerator() {
       const generated = generatePosts(input);
       setPosts(generated);
       setScreen("previews");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [topic]
   );
@@ -61,11 +63,13 @@ export default function PostGenerator() {
   const handleSelectPost = useCallback((index: number) => {
     setSelectedIndex(index);
     setScreen("fullPost");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleBackToPreviews = useCallback(() => {
     setSelectedIndex(null);
     setScreen("previews");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleStartOver = useCallback(() => {
@@ -75,6 +79,7 @@ export default function PostGenerator() {
     setPosts([]);
     setSelectedIndex(null);
     setScreen("topic");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const selectedPost =

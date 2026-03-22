@@ -33,7 +33,7 @@ export default function TopicInput({ onSubmit }: Props) {
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
-      <h1 className="font-heading text-5xl md:text-6xl font-bold text-navy mb-4">
+      <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-navy mb-4">
         LinkedIn Post Generator
       </h1>
       <p className="text-lg text-slate mb-12 max-w-lg">

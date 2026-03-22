@@ -27,7 +27,7 @@ export default function PreviewCards({ posts, onSelect, onStartOver }: Props) {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {posts.map((post, i) => (
           <motion.button
             key={i}
