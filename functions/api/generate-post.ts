@@ -133,6 +133,7 @@ async function callGemini(
       temperature,
       maxOutputTokens: 8192,
       responseMimeType: "application/json",
+      thinkingConfig: { thinkingBudget: 1024 },
     },
   };
 
@@ -221,11 +222,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const inputData = validation.data;
 
+  // === Retry helper ===
+  async function callGeminiWithRetry(
+    sys: string, user: string, temp: number, key: string
+  ) {
+    const first = await callGemini(sys, user, temp, key);
+    if (first.success) return first;
+    console.warn("Gemini attempt 1 failed, retrying:", first.error);
+    return callGemini(sys, user, temp, key);
+  }
+
   // === Refine Mode ===
   if (inputData.mode === "refine") {
     const systemPrompt = buildSystemPrompt();
     const userPrompt = buildRefinePrompt(inputData.post, inputData.action as any);
-    const result = await callGemini(systemPrompt, userPrompt, 0.5, apiKey);
+    const result = await callGeminiWithRetry(systemPrompt, userPrompt, 0.5, apiKey);
 
     if (!result.success) {
       return jsonResponse({
@@ -245,7 +256,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     (inputData.tone as any) || "conversational"
   );
 
-  const result = await callGemini(systemPrompt, userPrompt, 0.7, apiKey);
+  const result = await callGeminiWithRetry(systemPrompt, userPrompt, 0.7, apiKey);
 
   if (!result.success) {
     return jsonResponse({
