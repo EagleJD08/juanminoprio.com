@@ -1,9 +1,10 @@
 ---
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Resume", href: "#resume" },
-  { label: "Tools", href: "#tools" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Resume", href: "/#resume" },
+  { label: "Tools", href: "/#tools" },
+  { label: "Quiz", href: "/tools/marketer-quiz" },
+  { label: "Contact", href: "/#contact" },
 ];
 ---
 
@@ -45,8 +46,13 @@ const navLinks = [
 
 <script>
   const navbar = document.getElementById("navbar");
+  const isHomepage = window.location.pathname === "/";
+  if (!isHomepage && navbar) {
+    navbar.classList.remove("opacity-0", "-translate-y-4");
+    navbar.classList.add("opacity-100", "translate-y-0");
+  }
   window.addEventListener("scroll", () => {
-    if (!navbar) return;
+    if (!navbar || !isHomepage) return;
     if (window.scrollY > 100) {
       navbar.classList.remove("opacity-0", "-translate-y-4");
       navbar.classList.add("opacity-100", "translate-y-0");

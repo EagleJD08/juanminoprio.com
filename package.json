@@ -15,14 +15,14 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/lora": "^5.2.8",
     "@fontsource/plus-jakarta-sans": "^5.2.8",
-    "@netlify/functions": "^5.1.5",
-    "@tailwindcss/vite": "^4.2.1",
+"@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.17.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.35.0",
     "lucide-react": "^0.577.0",
+    "nanoid": "^5.1.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "recharts": "^3.8.0",
@@ -30,6 +30,7 @@
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.0",
+    "wrangler": "^4.78.0"
   }
 }

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+import QuizApp from "@components/quiz/QuizApp";
+---
+
+<BaseLayout
+  title="What Kind of Marketer Are You? | Free Marketing Quiz"
+  description="Discover your marketing archetype across 10 dimensions. Get personalized resources to sharpen your strengths and close your gaps. 2 minutes, 10 questions, no signup."
+  ogImage="/images/quiz-og.png"
+>
+  <Navbar />
+
+  <main id="main" class="pt-24 pb-16 flex-1">
+    <QuizApp client:load />
+  </main>
+
+  <Footer />
+</BaseLayout>
