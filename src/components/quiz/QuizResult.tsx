@@ -32,7 +32,7 @@ export default function QuizResult({ result, resultId, onRetake }: QuizResultPro
     .slice(0, 3);
 
   const shareUrl = resultId
-    ? `${window.location.origin}/tools/marketer-quiz?r=${resultId}`
+    ? `${window.location.origin}/projects/marketer-quiz?r=${resultId}`
     : null;
 
   const shareText = `I'm "${primary.name}" — ${primary.tagline}. Take the free marketing quiz to discover your type!`;
