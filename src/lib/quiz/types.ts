@@ -57,7 +57,7 @@ export interface SavedResult {
 export interface Resource {
   title: string;
   author?: string;
-  type: "book" | "course" | "tool";
+  type: "book" | "course" | "tool" | "podcast" | "newsletter" | "youtube" | "community";
   url: string;
   description: string;
 }

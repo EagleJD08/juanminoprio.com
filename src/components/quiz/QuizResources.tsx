@@ -12,6 +12,20 @@ const TYPE_ICONS: Record<string, string> = {
   book: "\u{1F4D6}",
   course: "\u{1F393}",
   tool: "\u{1F6E0}",
+  podcast: "\u{1F399}",
+  newsletter: "\u{1F4EC}",
+  youtube: "\u25B6\uFE0F",
+  community: "\u{1F465}",
+};
+
+const TYPE_CTAS: Record<string, string> = {
+  book: "Start reading",
+  course: "Start learning",
+  tool: "Try it out",
+  podcast: "Start listening",
+  newsletter: "Subscribe",
+  youtube: "Watch now",
+  community: "Join the community",
 };
 
 export default function QuizResources({ primaryType, growthArea }: QuizResourcesProps) {
@@ -66,7 +80,7 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
                     {resource.description}
                   </p>
                   <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-terracotta group-hover:gap-2 transition-all duration-200">
-                    Start learning
+                    {TYPE_CTAS[resource.type] ?? "Check it out"}
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -85,7 +99,7 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
             Close your gap &mdash; {growthInfo.name}
           </h4>
           <div className="space-y-3">
-            {growthResources.slice(0, 2).map((resource) => (
+            {growthResources.slice(0, 3).map((resource) => (
               <a
                 key={resource.title}
                 href={resource.url}
@@ -107,12 +121,15 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
                           by {resource.author}
                         </span>
                       )}
+                      <span className="text-[10px] uppercase tracking-wider text-slate/40 font-medium px-1.5 py-0.5 bg-sand/10 rounded">
+                        {resource.type}
+                      </span>
                     </div>
                     <p className="text-sm text-slate/70 mt-1 leading-relaxed">
                       {resource.description}
                     </p>
                     <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-dusty-blue group-hover:gap-2 transition-all duration-200">
-                      Start learning
+                      {TYPE_CTAS[resource.type] ?? "Check it out"}
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
