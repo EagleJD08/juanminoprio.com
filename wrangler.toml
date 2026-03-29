@@ -4,5 +4,5 @@ compatibility_date = "2024-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "marketer-quiz-db"
-database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
+database_id = "34160c47-dd81-4a8f-ad9d-9240cb28b0e4"
 migrations_dir = "migrations"
