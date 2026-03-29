@@ -88,7 +88,7 @@ export default function ShareCard({ result }: ShareCardProps) {
     // Branding
     ctx.fillStyle = "#B8A99A";
     ctx.font = "500 14px Inter, system-ui, sans-serif";
-    ctx.fillText("juanminoprio.com/tools/marketer-quiz", 60, H - 40);
+    ctx.fillText("juanminoprio.com/projects/marketer-quiz", 60, H - 40);
 
     // Description (wrapped)
     ctx.fillStyle = "#4A4A4A";
