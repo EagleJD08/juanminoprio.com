@@ -42,15 +42,15 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-white rounded-xl border border-sand/30 p-4 hover:border-terracotta/30 hover:shadow-sm transition-all group"
+              className="block bg-white rounded-xl border-2 border-sand/30 p-4 hover:border-terracotta/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
             >
               <div className="flex items-start gap-3">
                 <span className="text-lg flex-shrink-0 mt-0.5">
                   {TYPE_ICONS[resource.type]}
                 </span>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <span className="font-heading font-semibold text-navy group-hover:text-terracotta transition-colors">
+                    <span className="font-heading font-semibold text-navy underline decoration-terracotta/30 underline-offset-2 group-hover:decoration-terracotta transition-colors">
                       {resource.title}
                     </span>
                     {resource.author && (
@@ -65,6 +65,12 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
                   <p className="text-sm text-slate/70 mt-1 leading-relaxed">
                     {resource.description}
                   </p>
+                  <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-terracotta group-hover:gap-2 transition-all duration-200">
+                    Start learning
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
                 </div>
               </div>
             </a>
@@ -85,15 +91,15 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-dusty-blue/5 rounded-xl border border-dusty-blue/15 p-4 hover:border-dusty-blue/30 hover:shadow-sm transition-all group"
+                className="block bg-dusty-blue/5 rounded-xl border-2 border-dusty-blue/15 p-4 hover:border-dusty-blue/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
               >
                 <div className="flex items-start gap-3">
                   <span className="text-lg flex-shrink-0 mt-0.5">
                     {TYPE_ICONS[resource.type]}
                   </span>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="font-heading font-semibold text-navy group-hover:text-dusty-blue transition-colors">
+                      <span className="font-heading font-semibold text-navy underline decoration-dusty-blue/30 underline-offset-2 group-hover:decoration-dusty-blue transition-colors">
                         {resource.title}
                       </span>
                       {resource.author && (
@@ -105,6 +111,12 @@ export default function QuizResources({ primaryType, growthArea }: QuizResources
                     <p className="text-sm text-slate/70 mt-1 leading-relaxed">
                       {resource.description}
                     </p>
+                    <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-dusty-blue group-hover:gap-2 transition-all duration-200">
+                      Start learning
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </span>
                   </div>
                 </div>
               </a>
