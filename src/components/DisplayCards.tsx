@@ -1,6 +1,8 @@
 "use client";
 import { cn } from "../lib/utils";
-import { BarChart3, Megaphone, Sparkles } from "lucide-react";
+import { Brain, Sparkles, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { Language } from "../i18n/strings";
 
 interface DisplayCardProps {
   className?: string;
@@ -49,50 +51,90 @@ function DisplayCard({
   );
 }
 
-interface DisplayCardsProps {
-  cards?: DisplayCardProps[];
-}
-
-export default function DisplayCards({ cards }: DisplayCardsProps) {
-  const defaultCards: DisplayCardProps[] = [
+const cardData: Record<Language, DisplayCardProps[]> = {
+  en: [
     {
-      className:
-        "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[#B8A99A]/30 before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[#FAFAFA]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-      icon: <BarChart3 className="size-4 text-[#2C4A6E]" />,
-      title: "Business & Finance",
-      description: "Revenue models & competitive dynamics",
-      date: "Pillar 1",
-      iconBgClassName: "bg-[#2C4A6E]/15",
-      titleClassName: "text-[#2C4A6E]",
-    },
-    {
-      className:
-        "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[#B8A99A]/30 before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[#FAFAFA]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-      icon: <Megaphone className="size-4 text-[#6B4226]" />,
-      title: "Marketing & Psychology",
-      description: "Consumer behavior & campaign strategy",
-      date: "Pillar 2",
+      icon: <Brain className="size-4 text-[#6B4226]" />,
+      title: "Consumer Psychology",
+      description: "Why people buy, share, and stay loyal",
+      date: "Deep Vertical",
       iconBgClassName: "bg-[#6B4226]/15",
       titleClassName: "text-[#6B4226]",
     },
     {
-      className:
-        "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
       icon: <Sparkles className="size-4 text-[#7A9E7E]" />,
-      title: "AI & Productivity",
-      description: "Real workflows & practical systems",
-      date: "Pillar 3",
+      title: "AI for Marketing",
+      description: "Real workflows and systems, not hype",
+      date: "Applied AI",
       iconBgClassName: "bg-[#7A9E7E]/15",
       titleClassName: "text-[#7A9E7E]",
     },
-  ];
+    {
+      icon: <TrendingUp className="size-4 text-[#2C4A6E]" />,
+      title: "Business & Marketing",
+      description: "Revenue stories and brand value",
+      date: "Strategy",
+      iconBgClassName: "bg-[#2C4A6E]/15",
+      titleClassName: "text-[#2C4A6E]",
+    },
+  ],
+  es: [
+    {
+      icon: <Brain className="size-4 text-[#6B4226]" />,
+      title: "Psicolog\u00eda del Consumidor",
+      description: "Por qu\u00e9 la gente compra, comparte y es leal",
+      date: "Vertical Profunda",
+      iconBgClassName: "bg-[#6B4226]/15",
+      titleClassName: "text-[#6B4226]",
+    },
+    {
+      icon: <Sparkles className="size-4 text-[#7A9E7E]" />,
+      title: "IA para Marketing",
+      description: "Flujos de trabajo reales, no hype",
+      date: "IA Aplicada",
+      iconBgClassName: "bg-[#7A9E7E]/15",
+      titleClassName: "text-[#7A9E7E]",
+    },
+    {
+      icon: <TrendingUp className="size-4 text-[#2C4A6E]" />,
+      title: "Negocios & Marketing",
+      description: "Historias de ingresos y valor de marca",
+      date: "Estrategia",
+      iconBgClassName: "bg-[#2C4A6E]/15",
+      titleClassName: "text-[#2C4A6E]",
+    },
+  ],
+};
 
-  const displayCards = cards || defaultCards;
+const cardClassNames = [
+  "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[#B8A99A]/30 before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[#FAFAFA]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[#B8A99A]/30 before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[#FAFAFA]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
+];
+
+export default function DisplayCards() {
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof document !== "undefined") {
+      return (document.documentElement.getAttribute("data-lang") as Language) || "en";
+    }
+    return "en";
+  });
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.lang) setLang(detail.lang);
+    };
+    window.addEventListener("languagechange", handler);
+    return () => window.removeEventListener("languagechange", handler);
+  }, []);
+
+  const cards = cardData[lang];
 
   return (
     <div className="grid [grid-template-areas:'stack'] place-items-center opacity-100">
-      {displayCards.map((cardProps, index) => (
-        <DisplayCard key={index} {...cardProps} />
+      {cards.map((cardProps, index) => (
+        <DisplayCard key={`${lang}-${index}`} className={cardClassNames[index]} {...cardProps} />
       ))}
     </div>
   );

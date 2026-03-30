@@ -1,0 +1,60 @@
+---
+/**
+ * Language toggle — EN | ES
+ * Reads/writes localStorage, dispatches 'languagechange' event
+ */
+---
+
+<div class="flex items-center gap-0.5 text-xs font-body font-medium">
+  <button
+    id="lang-en"
+    class="lang-btn px-2 py-1 rounded-md transition-all duration-200 cursor-pointer"
+    aria-label="Switch to English"
+    data-lang="en"
+  >
+    EN
+  </button>
+  <span class="text-slate/30">|</span>
+  <button
+    id="lang-es"
+    class="lang-btn px-2 py-1 rounded-md transition-all duration-200 cursor-pointer"
+    aria-label="Cambiar a Español"
+    data-lang="es"
+  >
+    ES
+  </button>
+</div>
+
+<script>
+  function initToggle() {
+    const lang = document.documentElement.getAttribute("data-lang") || "en";
+    updateToggleUI(lang);
+
+    document.querySelectorAll<HTMLButtonElement>(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const newLang = btn.getAttribute("data-lang")!;
+        if (newLang === document.documentElement.getAttribute("data-lang")) return;
+        localStorage.setItem("lang", newLang);
+        document.documentElement.setAttribute("data-lang", newLang);
+        document.documentElement.lang = newLang;
+        updateToggleUI(newLang);
+        window.dispatchEvent(
+          new CustomEvent("languagechange", { detail: { lang: newLang } })
+        );
+      });
+    });
+  }
+
+  function updateToggleUI(lang: string) {
+    document.querySelectorAll<HTMLButtonElement>(".lang-btn").forEach((btn) => {
+      const isActive = btn.getAttribute("data-lang") === lang;
+      btn.classList.toggle("text-navy", isActive);
+      btn.classList.toggle("font-bold", isActive);
+      btn.classList.toggle("text-slate/40", !isActive);
+      btn.classList.toggle("hover:text-slate/70", !isActive);
+    });
+  }
+
+  initToggle();
+  document.addEventListener("astro:after-swap", initToggle);
+</script>

@@ -336,11 +336,11 @@ export default function ResumeTimeline() {
             </p>
             <div className="flex flex-wrap gap-2">
               {[
-                "Marketing Strategy",
-                "Data Visualization",
-                "Financial Analysis",
-                "AI Workflows",
                 "Consumer Psychology",
+                "Behavioral Economics",
+                "Marketing Strategy",
+                "AI Workflows",
+                "Data Storytelling",
                 "Content Strategy",
                 "Campaign Analysis",
                 "Product Thinking",

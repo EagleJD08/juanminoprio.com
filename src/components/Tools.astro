@@ -1,5 +1,5 @@
 ---
-const categories = [
+const categoriesEn = [
   {
     name: "AI",
     color: "terracotta",
@@ -10,7 +10,7 @@ const categories = [
     ],
   },
   {
-    name: "Marketing",
+    name: "Marketing & Analytics",
     color: "dusty-blue",
     tools: [
       { name: "Google Analytics", description: "Data and performance tracking" },
@@ -35,6 +35,42 @@ const categories = [
   },
 ];
 
+const categoriesEs = [
+  {
+    name: "IA",
+    color: "terracotta",
+    tools: [
+      { name: "Claude", description: "Escritura, análisis y construcción de sistemas" },
+      { name: "ChatGPT", description: "Investigación y lluvia de ideas" },
+      { name: "Cursor", description: "Editor de código con IA" },
+    ],
+  },
+  {
+    name: "Marketing & Analítica",
+    color: "dusty-blue",
+    tools: [
+      { name: "Google Analytics", description: "Datos y seguimiento de rendimiento" },
+      { name: "LinkedIn", description: "Networking y distribución de contenido" },
+    ],
+  },
+  {
+    name: "Diseño",
+    color: "soft-plum",
+    tools: [
+      { name: "Figma", description: "Creación de contenido visual" },
+      { name: "Canva", description: "Gráficos rápidos y visuales para redes" },
+    ],
+  },
+  {
+    name: "Productividad",
+    color: "sage",
+    tools: [
+      { name: "Notion", description: "Gestión del conocimiento y planificación" },
+      { name: "GitHub", description: "Hosting de código y control de versiones" },
+    ],
+  },
+];
+
 const dotColorMap: Record<string, string> = {
   terracotta: "bg-terracotta",
   "dusty-blue": "bg-dusty-blue",
@@ -55,15 +91,43 @@ const labelColorMap: Record<string, string> = {
 
   <div class="mx-auto max-w-6xl px-6">
     <div class="reveal max-w-2xl">
-      <span class="font-body text-xs font-medium tracking-widest uppercase text-terracotta">My toolkit</span>
-      <h2 class="mt-3 font-heading font-bold text-navy" style="font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);">Tools I use</h2>
+      <span class="font-body text-xs font-medium tracking-widest uppercase text-terracotta">
+        <span data-lang-en>My toolkit</span>
+        <span data-lang-es>Mis herramientas</span>
+      </span>
+      <h2 class="mt-3 font-heading font-bold text-navy" style="font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);">
+        <span data-lang-en>Tools I use</span>
+        <span data-lang-es>Herramientas que uso</span>
+      </h2>
       <p class="mt-4 text-slate">
-        A curated set of tools that power my workflows across marketing, analysis, and AI productivity.
+        <span data-lang-en>A curated set of tools that power my workflows across marketing, analysis, and AI productivity.</span>
+        <span data-lang-es>Un conjunto curado de herramientas que potencian mis flujos de trabajo en marketing, análisis e IA.</span>
       </p>
     </div>
 
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-      {categories.map((cat) => (
+    <!-- English tools -->
+    <div data-lang-en class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+      {categoriesEn.map((cat) => (
+        <div class="reveal">
+          <div class="flex items-center gap-2.5 mb-5">
+            <div class={`w-2 h-2 rounded-full ${dotColorMap[cat.color] || "bg-sand"}`}></div>
+            <span class={`text-xs font-medium tracking-widest uppercase ${labelColorMap[cat.color] || "text-slate"}`}>{cat.name}</span>
+          </div>
+          <div class="space-y-3">
+            {cat.tools.map((tool) => (
+              <div class="flex items-baseline justify-between gap-4 py-2.5 border-b border-sand/30 last:border-0">
+                <h3 class="font-heading font-semibold text-navy">{tool.name}</h3>
+                <p class="text-sm text-slate text-right">{tool.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Spanish tools -->
+    <div data-lang-es class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+      {categoriesEs.map((cat) => (
         <div class="reveal">
           <div class="flex items-center gap-2.5 mb-5">
             <div class={`w-2 h-2 rounded-full ${dotColorMap[cat.color] || "bg-sand"}`}></div>

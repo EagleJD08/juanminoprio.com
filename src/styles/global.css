@@ -35,6 +35,11 @@
   --animate-scroll-hint: scroll-hint 2s ease-in-out infinite;
 }
 
+/* i18n: language-based visibility toggle */
+html[data-lang="es"] [data-lang-en] { display: none !important; }
+html[data-lang="en"] [data-lang-es] { display: none !important; }
+html:not([data-lang]) [data-lang-es] { display: none !important; }
+
 /* Keyframes */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(30px); }

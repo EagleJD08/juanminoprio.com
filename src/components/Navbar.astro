@@ -1,10 +1,12 @@
 ---
+import LanguageToggle from './LanguageToggle.astro';
+
 const navLinks = [
-  { label: "About", href: "/#about" },
-  { label: "Resume", href: "/#resume" },
-  { label: "Tools", href: "/#tools" },
-  { label: "Quiz", href: "/projects/marketer-quiz" },
-  { label: "Contact", href: "/#contact" },
+  { en: "About", es: "Sobre mí", href: "/#about" },
+  { en: "Resume", es: "Experiencia", href: "/#resume" },
+  { en: "Tools", es: "Herramientas", href: "/#tools" },
+  { en: "Quiz", es: "Quiz", href: "/projects/marketer-quiz" },
+  { en: "Contact", es: "Contacto", href: "/#contact" },
 ];
 ---
 
@@ -18,17 +20,23 @@ const navLinks = [
       {navLinks.map((link) => (
         <li>
           <a href={link.href} class="px-4 py-2 text-sm font-body font-medium text-slate rounded-lg cursor-pointer hover:text-navy hover:bg-navy/[0.04] transition-all duration-200">
-            {link.label}
+            <span data-lang-en>{link.en}</span>
+            <span data-lang-es>{link.es}</span>
           </a>
         </li>
       ))}
     </ul>
 
-    <button id="mobile-menu-btn" class="md:hidden min-w-11 min-h-11 flex items-center justify-center text-navy cursor-pointer rounded-lg hover:bg-navy/[0.04] transition-colors duration-200" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+    <div class="flex items-center gap-3">
+      <div class="hidden md:block">
+        <LanguageToggle />
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden min-w-11 min-h-11 flex items-center justify-center text-navy cursor-pointer rounded-lg hover:bg-navy/[0.04] transition-colors duration-200" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
   </div>
 
   <div id="mobile-menu" class="hidden md:hidden mt-2 mx-auto max-w-5xl bg-white/80 backdrop-blur-xl border border-sand/40 rounded-2xl shadow-lg overflow-hidden">
@@ -36,11 +44,15 @@ const navLinks = [
       {navLinks.map((link) => (
         <li>
           <a href={link.href} class="block px-4 py-2.5 text-sm font-body font-medium text-slate rounded-lg cursor-pointer hover:text-navy hover:bg-navy/[0.04] transition-all duration-200">
-            {link.label}
+            <span data-lang-en>{link.en}</span>
+            <span data-lang-es>{link.es}</span>
           </a>
         </li>
       ))}
     </ul>
+    <div class="px-4 pb-3 pt-1 border-t border-sand/20">
+      <LanguageToggle />
+    </div>
   </div>
 </nav>
 

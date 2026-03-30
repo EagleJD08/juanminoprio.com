@@ -18,6 +18,11 @@ const { title, description = "Finance. Marketing. AI. — Making the complex cle
     <meta name="description" content={description} />
     <meta name="author" content="Juan Minoprio" />
 
+    <!-- i18n: set language before first paint to prevent flash -->
+    <script is:inline>
+      (function(){var l=localStorage.getItem('lang')||'en';document.documentElement.lang=l;document.documentElement.setAttribute('data-lang',l);})();
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

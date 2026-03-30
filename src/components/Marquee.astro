@@ -1,19 +1,32 @@
 ---
 /**
  * A CSS-only marquee ticker — zero JS, infinite scroll
- * Inspired by MagicUI Marquee component
+ * Dual-language: renders both EN and ES, CSS toggles visibility
  */
-const keywords = [
-  "Business Strategy",
-  "Data Visualization",
+const keywordsEn = [
   "Consumer Psychology",
-  "Financial Analysis",
-  "Content Marketing",
-  "AI Workflows",
-  "Product Thinking",
-  "Campaign Architecture",
   "Behavioral Economics",
-  "Brand Storytelling",
+  "Brand Strategy",
+  "AI for Marketing",
+  "Data Storytelling",
+  "Campaign Architecture",
+  "Product Marketing",
+  "MarTech",
+  "Content Strategy",
+  "Lifecycle Marketing",
+];
+
+const keywordsEs = [
+  "Psicología del Consumidor",
+  "Economía Conductual",
+  "Estrategia de Marca",
+  "IA para Marketing",
+  "Storytelling de Datos",
+  "Arquitectura de Campañas",
+  "Product Marketing",
+  "MarTech",
+  "Estrategia de Contenido",
+  "Marketing de Ciclo de Vida",
 ];
 
 const separator = "✦";
@@ -24,16 +37,31 @@ const separator = "✦";
   <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-navy to-transparent z-10"></div>
   <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-navy to-transparent z-10"></div>
 
-  <div class="flex gap-6 animate-marquee" style="--marquee-duration: 35s; width: max-content;">
-    {/* First set */}
-    {keywords.map((word) => (
+  <!-- English marquee -->
+  <div data-lang-en class="flex gap-6 animate-marquee" style="--marquee-duration: 35s; width: max-content;">
+    {keywordsEn.map((word) => (
       <span class="flex items-center gap-6 whitespace-nowrap">
         <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
         <span class="text-terracotta/60 text-xs">{separator}</span>
       </span>
     ))}
-    {/* Duplicate for seamless loop */}
-    {keywords.map((word) => (
+    {keywordsEn.map((word) => (
+      <span class="flex items-center gap-6 whitespace-nowrap">
+        <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
+        <span class="text-terracotta/60 text-xs">{separator}</span>
+      </span>
+    ))}
+  </div>
+
+  <!-- Spanish marquee -->
+  <div data-lang-es class="flex gap-6 animate-marquee" style="--marquee-duration: 35s; width: max-content;">
+    {keywordsEs.map((word) => (
+      <span class="flex items-center gap-6 whitespace-nowrap">
+        <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
+        <span class="text-terracotta/60 text-xs">{separator}</span>
+      </span>
+    ))}
+    {keywordsEs.map((word) => (
       <span class="flex items-center gap-6 whitespace-nowrap">
         <span class="text-sm font-body font-medium tracking-wide text-cream/70">{word}</span>
         <span class="text-terracotta/60 text-xs">{separator}</span>

@@ -13,21 +13,34 @@ import HeroCollage from './HeroCollage.tsx';
       <!-- Text content -->
       <div class="flex-1 text-left">
         <p class="animate-fade-in font-body text-sm font-medium tracking-widest uppercase text-terracotta mb-6">
-          Marketing &middot; Finance &middot; AI
+          <span data-lang-en>Consumer Psychology &middot; Marketing &middot; AI</span>
+          <span data-lang-es>Psicología del Consumidor &middot; Marketing &middot; IA</span>
         </p>
 
         <h1 class="font-heading font-bold leading-[1.1] text-navy" style="font-size: clamp(2.75rem, 5vw + 1rem, 4.5rem);">
-          <span class="hero-word">Making</span>{" "}
-          <span class="hero-word">the</span><br />
-          <span class="hero-word">complex</span>{" "}
-          <span class="hero-word relative inline-block">
-            <span class="relative z-10">clear.</span>
-            <span class="absolute bottom-2 left-0 w-full h-3 bg-terracotta/20 rounded-sm"></span>
+          <span data-lang-en>
+            <span class="hero-word">Making</span>{" "}
+            <span class="hero-word">the</span><br />
+            <span class="hero-word">complex</span>{" "}
+            <span class="hero-word relative inline-block">
+              <span class="relative z-10">clear.</span>
+              <span class="absolute bottom-2 left-0 w-full h-3 bg-terracotta/20 rounded-sm"></span>
+            </span>
+          </span>
+          <span data-lang-es>
+            <span class="hero-word">Haciendo</span>{" "}
+            <span class="hero-word">lo</span><br />
+            <span class="hero-word">complejo,</span>{" "}
+            <span class="hero-word relative inline-block">
+              <span class="relative z-10">claro.</span>
+              <span class="absolute bottom-2 left-0 w-full h-3 bg-terracotta/20 rounded-sm"></span>
+            </span>
           </span>
         </h1>
 
         <p class="animate-fade-up font-accent italic text-slate/80 mt-6 max-w-lg" style="font-size: clamp(1.15rem, 1.5vw + 0.5rem, 1.5rem); animation-delay: 0.2s;">
-          The person who understands how money, products, and attention work — and makes it clear for everyone else.
+          <span data-lang-en>I study what drives decisions, builds brands, and makes ideas stick — then I make it clear for everyone else.</span>
+          <span data-lang-es>Estudio lo que impulsa decisiones, construye marcas y hace que las ideas perduren — y lo hago claro para los demás.</span>
         </p>
 
         <div class="animate-fade-up flex flex-col sm:flex-row items-start gap-4 mt-10" style="animation-delay: 0.4s;">
@@ -38,14 +51,16 @@ import HeroCollage from './HeroCollage.tsx';
             class="group inline-flex items-center gap-3 bg-navy text-white font-body font-medium px-7 py-3.5 rounded-full cursor-pointer hover:bg-navy/90 hover:shadow-lg hover:shadow-navy/20 transition-all duration-300 ease-out"
           >
             <svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            Follow on LinkedIn
+            <span data-lang-en>Follow on LinkedIn</span>
+            <span data-lang-es>Seguir en LinkedIn</span>
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a
             href="#resume"
             class="group inline-flex items-center gap-2 text-navy font-body font-medium px-7 py-3.5 rounded-full border border-navy/15 cursor-pointer hover:border-navy/40 hover:bg-navy/[0.03] transition-all duration-300"
           >
-            See my resume
+            <span data-lang-en>See my resume</span>
+            <span data-lang-es>Ver experiencia</span>
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
           </a>
         </div>
@@ -59,7 +74,10 @@ import HeroCollage from './HeroCollage.tsx';
 
     <!-- Scroll indicator -->
     <div class="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 animate-fade-in" style="animation-delay: 1s;">
-      <span class="text-[10px] text-slate/40 font-body tracking-[0.2em] uppercase">Scroll</span>
+      <span class="text-[10px] text-slate/40 font-body tracking-[0.2em] uppercase">
+        <span data-lang-en>Scroll</span>
+        <span data-lang-es>Desplazar</span>
+      </span>
       <div class="w-5 h-9 rounded-full border-2 border-slate/15 flex justify-center pt-2">
         <div class="w-1 h-1.5 rounded-full bg-slate/30 animate-scroll-hint"></div>
       </div>
