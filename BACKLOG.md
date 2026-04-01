@@ -14,7 +14,7 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 ## Priority Features
 
 ### P0 — Ship This Week
-- [ ] Add Apple Revenue Dashboard to Portfolio Grid — components exist at `src/components/apple/`, need content collection entry + portfolio card
+- [x] Add Apple Revenue Dashboard to Portfolio Grid — components exist at `src/components/apple/`, need content collection entry + portfolio card (2026-04-01)
 - [ ] Add Schwab Dashboard to Portfolio Grid — components exist at `src/components/schwab/`, need content collection entry + portfolio card
 - [ ] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility
 - [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
@@ -39,4 +39,4 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 5. [ ] **Marketing Automation Teardown** — analyze a public company's digital presence and martech stack
 
 ## Completed
-*(Agent moves items here after building)*
+- [x] Add Apple Revenue Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-01)

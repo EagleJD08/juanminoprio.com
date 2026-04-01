@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1D1D1F"/>
+      <stop offset="100%" stop-color="#2C2C2E"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6B4226"/>
+      <stop offset="100%" stop-color="#8B5A3A"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4A6B8A"/>
+      <stop offset="100%" stop-color="#2C4A6E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)" rx="12"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="60" y1="80" x2="60" y2="400" stroke="#3A3A3C" stroke-width="1"/>
+  <line x1="60" y1="400" x2="740" y2="400" stroke="#3A3A3C" stroke-width="1"/>
+  <line x1="60" y1="300" x2="740" y2="300" stroke="#3A3A3C" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="60" y1="200" x2="740" y2="200" stroke="#3A3A3C" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <!-- Title area -->
+  <text x="60" y="50" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="22" fill="#FAFAFA">How Apple Makes Money</text>
+  <text x="60" y="72" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#8E8E93">FY2025 · $416.2B Revenue · 5 Streams · 9 Chapters</text>
+
+  <!-- Revenue bar chart — horizontal bars for each stream -->
+  <!-- iPhone: ~201B = 48% of total -->
+  <rect x="60" y="112" width="528" height="40" rx="4" fill="url(#bar1)" opacity="0.9"/>
+  <text x="598" y="138" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$201.0B</text>
+  <text x="60" y="108" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93">iPhone</text>
+
+  <!-- Services: ~96B = 23% -->
+  <rect x="60" y="176" width="252" height="40" rx="4" fill="url(#bar2)" opacity="0.9"/>
+  <text x="322" y="202" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$96.2B</text>
+  <text x="60" y="172" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93">Services</text>
+
+  <!-- Mac: ~38B = 9% -->
+  <rect x="60" y="240" width="99" height="40" rx="4" fill="#7A9E7E" opacity="0.8"/>
+  <text x="169" y="266" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$37.8B</text>
+  <text x="60" y="236" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93">Mac</text>
+
+  <!-- iPad: ~28B = 6.7% -->
+  <rect x="60" y="304" width="74" height="40" rx="4" fill="#B8A99A" opacity="0.8"/>
+  <text x="144" y="330" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$27.9B</text>
+  <text x="60" y="300" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93">iPad</text>
+
+  <!-- Wearables: ~38B = 9% -->
+  <rect x="60" y="368" width="99" height="40" rx="4" fill="#8B6F8E" opacity="0.8"/>
+  <text x="169" y="394" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$53.2B</text>
+  <text x="60" y="364" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93">Wearables &amp; Other</text>
+
+  <!-- Total callout -->
+  <rect x="590" y="290" width="150" height="80" rx="8" fill="#2C2C2E" stroke="#6B4226" stroke-width="1.5"/>
+  <text x="665" y="318" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8E8E93" text-anchor="middle">Total Revenue</text>
+  <text x="665" y="348" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="24" fill="#FAFAFA" text-anchor="middle">$416B</text>
+
+  <!-- Bottom label -->
+  <text x="60" y="468" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#636366">Interactive · 9 chapters · Recharts + Framer Motion</text>
+</svg>
