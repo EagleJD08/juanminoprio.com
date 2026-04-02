@@ -14,8 +14,11 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 ## Priority Features
 
 ### P0 — Ship This Week
-- [ ] Add Apple Revenue Dashboard to Portfolio Grid — components exist at `src/components/apple/`, need content collection entry + portfolio card
+- [x] Add Apple Revenue Dashboard to Portfolio Grid — components exist at `src/components/apple/`, need content collection entry + portfolio card (2026-04-01)
 - [ ] Add Schwab Dashboard to Portfolio Grid — components exist at `src/components/schwab/`, need content collection entry + portfolio card
+- [ ] "Case Study Mode" toggle on data dashboards — add a toggle that switches between "Data View" (charts/numbers) and "Strategy View" (guided narrative with annotations, strategic insights, and "what I would do" commentary overlaid on the same charts). Start with Apple Revenue Dashboard. Shows hiring managers how Juan thinks, not just what he built.
+- [ ] "Results I've Driven" metrics banner — animated counter section surfacing 4-5 key metrics (10.2M impressions, 42% faster turnaround, 3 interactive projects shipped, etc.). Position between About and Resume. Numbers-first credibility for finance hiring managers.
+- [ ] "How I Built This" collapsible process sections on portfolio projects — narrative walkthrough of tools used, data sources, analytical approach, design decisions, and lessons learned. Includes "Time to build" and "AI tools used" callouts. Start with Apple + Spending Viz.
 - [ ] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility
 - [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
 
@@ -39,4 +42,4 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 5. [ ] **Marketing Automation Teardown** — analyze a public company's digital presence and martech stack
 
 ## Completed
-*(Agent moves items here after building)*
+- [x] Add Apple Revenue Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-01)
