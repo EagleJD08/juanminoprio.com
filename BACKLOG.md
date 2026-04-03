@@ -23,6 +23,8 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 - [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
 
 ### P1 — This Month
+- [ ] Skills Radar / T-Shape Competency Map — interactive spider/radar chart (React + Recharts) mapping Juan's T-shaped expertise. Vertical axis: Consumer Psychology (deep). Horizontal arms: AI for Marketing, MarTech, Data Storytelling, Product Marketing, Lifecycle Marketing, Content Production, Financial Literacy. Each node is clickable and expands to show evidence (project link, metric, or LinkedIn post). Gives recruiters an instant "does this person match our JD?" answer in one visual.
+- [ ] Edge Social Proof API — Cloudflare Worker + D1 endpoint (`/api/stats`) that surfaces live site metrics: quiz completion count + most common result, portfolio project view counts. Lightweight React widget on portfolio grid cards shows real numbers (e.g., "427 people have taken this quiz"). Uses `navigator.sendBeacon` for zero LCP impact. Demonstrates full-stack edge data instrumentation.
 - [ ] Blog/Writing section — content collection for articles, listing page with pillar filtering (Consumer Psych / AI / Business), individual article pages with MDX support
 - [ ] "One Chart" data visualization series — 5 standalone interactive charts (React + Recharts), each telling one business story, linkable from LinkedIn posts
 - [ ] Mobile responsiveness polish — audit all components on mobile viewports, fix any layout issues
