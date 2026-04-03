@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="schwab-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#0F1F35"/>
+    </linearGradient>
+    <linearGradient id="schwab-bar1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2C4A6E"/>
+      <stop offset="100%" stop-color="#3A6090"/>
+    </linearGradient>
+    <linearGradient id="schwab-bar2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6B4226"/>
+      <stop offset="100%" stop-color="#8B5A3A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#schwab-bg)" rx="12"/>
+
+  <!-- Grid lines -->
+  <line x1="60" y1="80" x2="60" y2="410" stroke="#2A3A4A" stroke-width="1"/>
+  <line x1="60" y1="410" x2="740" y2="410" stroke="#2A3A4A" stroke-width="1"/>
+  <line x1="60" y1="310" x2="740" y2="310" stroke="#2A3A4A" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="60" y1="210" x2="740" y2="210" stroke="#2A3A4A" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <!-- Title -->
+  <text x="60" y="50" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="22" fill="#FAFAFA">How Schwab Makes Money</text>
+  <text x="60" y="72" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#7A8A9A">2025 · $23.9B Revenue · 4 Segments · 7 Chapters</text>
+
+  <!-- Net Interest Income: ~$10.8B = 45% of $24B → width ~484 -->
+  <text x="60" y="108" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7A8A9A">Net Interest Income</text>
+  <rect x="60" y="112" width="484" height="40" rx="4" fill="url(#schwab-bar1)" opacity="0.95"/>
+  <text x="554" y="138" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$10.8B</text>
+
+  <!-- Asset Management: ~$5.4B = 22.5% → width ~242 -->
+  <text x="60" y="172" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7A8A9A">Asset Management Fees</text>
+  <rect x="60" y="176" width="242" height="40" rx="4" fill="#7A9E7E" opacity="0.85"/>
+  <text x="312" y="202" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$5.4B</text>
+
+  <!-- Trading Revenue: ~$4.3B = 18% → width ~193 -->
+  <text x="60" y="236" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7A8A9A">Trading Revenue</text>
+  <rect x="60" y="240" width="193" height="40" rx="4" fill="url(#schwab-bar2)" opacity="0.85"/>
+  <text x="263" y="266" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$4.3B</text>
+
+  <!-- Other: ~$3.4B = 14.2% → width ~152 -->
+  <text x="60" y="300" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7A8A9A">Bank Deposits &amp; Other</text>
+  <rect x="60" y="304" width="152" height="40" rx="4" fill="#B8A99A" opacity="0.8"/>
+  <text x="222" y="330" font-family="'Inter', system-ui, sans-serif" font-size="13" fill="#FAFAFA" opacity="0.9">$3.4B</text>
+
+  <!-- Total callout box -->
+  <rect x="575" y="290" width="165" height="90" rx="8" fill="#0F1F35" stroke="#2C4A6E" stroke-width="1.5"/>
+  <text x="657" y="320" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7A8A9A" text-anchor="middle">Total Revenue</text>
+  <text x="657" y="355" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="26" fill="#FAFAFA" text-anchor="middle">$23.9B</text>
+
+  <!-- Bottom label -->
+  <text x="60" y="468" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#4A5A6A">Interactive · 7 chapters · Recharts + Framer Motion</text>
+</svg>
