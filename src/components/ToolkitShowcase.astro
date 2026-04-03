@@ -1,0 +1,111 @@
+---
+import { getCollection } from 'astro:content';
+
+const allTools = await getCollection('toolkit');
+const builtTools = allTools.filter(t => t.data.type === 'built');
+
+const categoryColors: Record<string, string> = {
+  'content': 'bg-terracotta/10 text-terracotta',
+  'decision-making': 'bg-dusty-blue/10 text-dusty-blue',
+  'productivity': 'bg-soft-plum/10 text-soft-plum',
+};
+---
+
+<section id="toolkit" class="py-24 md:py-32 bg-cream relative">
+  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sand to-transparent"></div>
+
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="reveal max-w-2xl">
+      <span class="font-body text-xs font-medium tracking-widest uppercase text-terracotta">
+        <span data-lang-en>Toolkit</span>
+        <span data-lang-es>Toolkit</span>
+      </span>
+      <h2 class="mt-3 font-heading font-bold text-navy" style="font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);">
+        <span data-lang-en>Tools I built to solve my own problems</span>
+        <span data-lang-es>Herramientas que construí para resolver mis propios problemas</span>
+      </h2>
+      <p class="mt-4 text-slate">
+        <span data-lang-en>Open-source AI tools for marketers and builders. Each one started as a personal itch — now they're yours to use.</span>
+        <span data-lang-es>Herramientas de IA de código abierto para marketers y builders. Cada una empezó como una necesidad personal — ahora son tuyas.</span>
+      </p>
+    </div>
+
+    <div class="mt-12 flex flex-col gap-6">
+      {builtTools.map((tool) => {
+        const gradient = tool.data.gradient;
+        const gradientStyle = gradient.via
+          ? `linear-gradient(135deg, ${gradient.from}, ${gradient.via}, ${gradient.to})`
+          : `linear-gradient(135deg, ${gradient.from}, ${gradient.to})`;
+        const slug = tool.id.replace(/\.md$/, '');
+
+        return (
+          <div class="reveal group bg-white border border-sand/30 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="md:w-[42%] min-h-[180px] md:min-h-[220px] flex items-center justify-center relative overflow-hidden"
+                style={`background: ${gradientStyle}`}
+              >
+                <div class="absolute inset-0 opacity-10" style="background: repeating-linear-gradient(45deg, transparent, transparent 20px, white 20px, white 21px);"></div>
+                <div class="text-center relative z-10">
+                  <div class="text-5xl mb-2">{tool.data.icon}</div>
+                  <div class="text-xl font-heading font-bold text-white">{tool.data.title}</div>
+                  <div class="text-xs text-white/70 mt-1">
+                    <span data-lang-en>{tool.data.tagline}</span>
+                    <span data-lang-es>{tool.data.tagline_es || tool.data.tagline}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="md:w-[58%] p-6 md:p-8 flex flex-col justify-center">
+                <div class="flex gap-2 mb-3">
+                  <span class="text-[10px] font-medium bg-sage/10 text-sage px-2.5 py-0.5 rounded-full">
+                    <span data-lang-en>Open Source</span>
+                    <span data-lang-es>Código Abierto</span>
+                  </span>
+                  <span class={`text-[10px] font-medium px-2.5 py-0.5 rounded-full ${categoryColors[tool.data.category] || 'bg-sand/20 text-slate'}`}>
+                    {tool.data.category}
+                  </span>
+                </div>
+
+                <p class="text-sm text-slate leading-relaxed mb-5">
+                  <span data-lang-en>{tool.data.description}</span>
+                  <span data-lang-es>{tool.data.description_es || tool.data.description}</span>
+                </p>
+
+                <div class="flex gap-3">
+                  <a
+                    href={`/toolkit/${slug}`}
+                    class="inline-flex items-center gap-2 text-sm font-medium bg-navy text-white px-5 py-2.5 rounded-lg hover:bg-navy/90 transition-colors duration-200"
+                  >
+                    <span data-lang-en>View Tool →</span>
+                    <span data-lang-es>Ver Herramienta →</span>
+                  </a>
+                  <a
+                    href={tool.data.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 text-sm font-medium bg-white text-navy px-5 py-2.5 rounded-lg border border-sand/50 hover:border-sand transition-colors duration-200"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- View all link -->
+    <div class="mt-8 text-center reveal">
+      <a
+        href="/toolkit"
+        class="inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta/80 transition-colors duration-200"
+      >
+        <span data-lang-en>View all tools →</span>
+        <span data-lang-es>Ver todas las herramientas →</span>
+      </a>
+    </div>
+  </div>
+</section>
