@@ -19,7 +19,7 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 - [ ] "Case Study Mode" toggle on data dashboards — add a toggle that switches between "Data View" (charts/numbers) and "Strategy View" (guided narrative with annotations, strategic insights, and "what I would do" commentary overlaid on the same charts). Start with Apple Revenue Dashboard. Shows hiring managers how Juan thinks, not just what he built.
 - [x] "Results I've Driven" metrics banner — animated counter section surfacing 4-5 key metrics (10.2M impressions, 42% faster turnaround, 3 interactive projects shipped, etc.). Position between About and Resume. Numbers-first credibility for finance hiring managers. (2026-04-03)
 - [ ] "How I Built This" collapsible process sections on portfolio projects — narrative walkthrough of tools used, data sources, analytical approach, design decisions, and lessons learned. Includes "Time to build" and "AI tools used" callouts. Start with Apple + Spending Viz.
-- [ ] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility
+- [x] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility (2026-04-03)
 - [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
 
 ### P1 — This Month
@@ -47,3 +47,4 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 - [x] Add Apple Revenue Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-01)
 - [x] Add Schwab Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-03)
 - [x] "Results I've Driven" metrics banner — 4 metrics, animated counters, between About and Resume (2026-04-03)
+- [x] Populate Tools page with real content — 5 categories, 23 tools, bilingual (2026-04-03)
