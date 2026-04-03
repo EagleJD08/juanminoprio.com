@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   return entries
     .filter(entry => entry.data.type === 'built')
     .map((entry) => ({
-      params: { slug: entry.id },
+      params: { slug: entry.id.replace(/\.md$/, '') },
       props: { entry },
     }));
 }
@@ -35,7 +35,8 @@ const diagramComponents: Record<string, string> = {
   'hook-lab': 'HookLabDiagram',
   'advisory-board': 'AdvisoryBoardDiagram',
 };
-const diagramType = diagramComponents[entry.id] || null;
+const slug = entry.id.replace(/\.md$/, '');
+const diagramType = diagramComponents[slug] || null;
 ---
 
 <BaseLayout
@@ -134,21 +135,21 @@ const diagramType = diagramComponents[entry.id] || null;
           <span data-lang-es>Cómo Funciona</span>
         </span>
         <h2 class="mt-3 mb-8 font-heading font-bold text-2xl md:text-3xl text-navy">
-          {entry.id === 'advisory-board' && (
+          {slug === 'advisory-board' && (
             <>
               <span data-lang-en>Six perspectives, one decision</span>
               <span data-lang-es>Seis perspectivas, una decisión</span>
             </>
           )}
-          {entry.id === 'hook-lab' && (
+          {slug === 'hook-lab' && (
             <>
               <span data-lang-en>From one hook to your top 10</span>
               <span data-lang-es>De un hook a tu top 10</span>
             </>
           )}
         </h2>
-        {entry.id === 'advisory-board' && <AdvisoryBoardDiagram client:visible />}
-        {entry.id === 'hook-lab' && <HookLabDiagram client:visible />}
+        {slug === 'advisory-board' && <AdvisoryBoardDiagram client:visible />}
+        {slug === 'hook-lab' && <HookLabDiagram client:visible />}
       </section>
 
       <!-- In Action (Screenshot / Demo) -->
@@ -186,13 +187,13 @@ const diagramType = diagramComponents[entry.id] || null;
       <section class="mt-16 md:mt-20 reveal">
         <div class="bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-10 md:p-12 text-center">
           <h2 class="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
-            {entry.id === 'advisory-board' && (
+            {slug === 'advisory-board' && (
               <>
                 <span data-lang-en>Ready to build your own board?</span>
                 <span data-lang-es>¿Listo para construir tu propio directorio?</span>
               </>
             )}
-            {entry.id === 'hook-lab' && (
+            {slug === 'hook-lab' && (
               <>
                 <span data-lang-en>Ready to test your hooks?</span>
                 <span data-lang-es>¿Listo para probar tus hooks?</span>

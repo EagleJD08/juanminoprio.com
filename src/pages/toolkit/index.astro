@@ -56,7 +56,7 @@ const curatedTools = allTools.filter(t => t.data.type === 'curated');
             githubUrl={tool.data.githubUrl}
             gradient={tool.data.gradient}
             icon={tool.data.icon}
-            slug={tool.id}
+            slug={tool.id.replace(/\.md$/, '')}
           />
         ))}
       </div>
