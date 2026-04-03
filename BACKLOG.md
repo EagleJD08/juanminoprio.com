@@ -20,7 +20,7 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 - [x] "Results I've Driven" metrics banner — animated counter section surfacing 4-5 key metrics (10.2M impressions, 42% faster turnaround, 3 interactive projects shipped, etc.). Position between About and Resume. Numbers-first credibility for finance hiring managers. (2026-04-03)
 - [ ] "How I Built This" collapsible process sections on portfolio projects — narrative walkthrough of tools used, data sources, analytical approach, design decisions, and lessons learned. Includes "Time to build" and "AI tools used" callouts. Start with Apple + Spending Viz.
 - [x] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility (2026-04-03)
-- [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
+- [x] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap (2026-04-03)
 
 ### P1 — This Month
 - [ ] Skills Radar / T-Shape Competency Map — interactive spider/radar chart (React + Recharts) mapping Juan's T-shaped expertise. Vertical axis: Consumer Psychology (deep). Horizontal arms: AI for Marketing, MarTech, Data Storytelling, Product Marketing, Lifecycle Marketing, Content Production, Financial Literacy. Each node is clickable and expands to show evidence (project link, metric, or LinkedIn post). Gives recruiters an instant "does this person match our JD?" answer in one visual.
@@ -48,3 +48,4 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 - [x] Add Schwab Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-03)
 - [x] "Results I've Driven" metrics banner — 4 metrics, animated counters, between About and Resume (2026-04-03)
 - [x] Populate Tools page with real content — 5 categories, 23 tools, bilingual (2026-04-03)
+- [x] SEO metadata + Open Graph — canonical URLs, JSON-LD schema, sitemap, og:site_name, twitter cards, per-page OG images (2026-04-03)

@@ -5,9 +5,31 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  schema?: object;
 }
 
-const { title, description = "Finance. Marketing. AI. — Making the complex clear.", ogImage = "/images/og-image.png" } = Astro.props;
+const {
+  title,
+  description = "Finance. Marketing. AI. — Making the complex clear.",
+  ogImage = "/images/og-image.png",
+  schema,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://juanminoprio.com');
+
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Juan Minoprio",
+  "url": "https://juanminoprio.com",
+  "jobTitle": "Marketing Specialist",
+  "description": "Consumer psychology, AI for marketing, and data storytelling.",
+  "sameAs": [
+    "https://www.linkedin.com/in/juanminoprio"
+  ]
+};
+
+const jsonLd = schema ?? defaultSchema;
 ---
 
 <!doctype html>
@@ -17,19 +39,28 @@ const { title, description = "Finance. Marketing. AI. — Making the complex cle
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Juan Minoprio" />
+    <meta name="robots" content="index, follow" />
 
     <!-- i18n: set language before first paint to prevent flash -->
     <script is:inline>
       (function(){var l=localStorage.getItem('lang')||'en';document.documentElement.lang=l;document.documentElement.setAttribute('data-lang',l);})();
     </script>
 
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
     <!-- Open Graph -->
+    <meta property="og:site_name" content="Juan Minoprio" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <!-- Twitter/X Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Preload critical fonts -->
@@ -38,6 +69,10 @@ const { title, description = "Finance. Marketing. AI. — Making the complex cle
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <script defer data-domain="juanminoprio.com" src="https://plausible.io/js/script.js"></script>
   </head>
   <body class="bg-cream text-navy antialiased min-h-screen flex flex-col">
