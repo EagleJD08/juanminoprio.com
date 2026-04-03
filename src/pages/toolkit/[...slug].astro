@@ -5,6 +5,7 @@ import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
 import AdvisoryBoardDiagram from '@components/toolkit/AdvisoryBoardDiagram';
 import HookLabDiagram from '@components/toolkit/HookLabDiagram';
+import ScrollReveal from '@components/ScrollReveal.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('toolkit');
@@ -227,4 +228,5 @@ const diagramType = diagramComponents[entry.id] || null;
   </main>
 
   <Footer />
+  <ScrollReveal />
 </BaseLayout>

@@ -6,6 +6,7 @@ import Footer from '@components/Footer.astro';
 import ToolkitCard from '@components/toolkit/ToolkitCard.astro';
 import CuratedCard from '@components/toolkit/CuratedCard.astro';
 import TabToggle from '@components/toolkit/TabToggle';
+import ScrollReveal from '@components/ScrollReveal.astro';
 
 const allTools = await getCollection('toolkit');
 const builtTools = allTools.filter(t => t.data.type === 'built');
@@ -93,6 +94,7 @@ const curatedTools = allTools.filter(t => t.data.type === 'curated');
   </main>
 
   <Footer />
+  <ScrollReveal />
 </BaseLayout>
 
 <script>
