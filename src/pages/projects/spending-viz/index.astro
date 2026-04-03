@@ -10,6 +10,7 @@ import NarrativeTransition from "@components/spending-viz/NarrativeTransition";
 import ClosingSection from "@components/spending-viz/ClosingSection";
 import ScrollProgress from "@components/spending-viz/ScrollProgress";
 import BackToTop from "@components/spending-viz/BackToTop";
+import HowIBuiltThis from "@components/shared/HowIBuiltThis";
 ---
 
 <BaseLayout
@@ -55,6 +56,21 @@ import BackToTop from "@components/spending-viz/BackToTop";
     <InsightCards client:visible />
 
     <ClosingSection client:visible />
+
+    <HowIBuiltThis
+      client:visible
+      theme="light"
+      timeToBuild="~8 hours over 2 days"
+      aiTools={["Claude (narrative writing)", "ChatGPT (data structuring)", "Cursor (React components)"]}
+      dataSources={[
+        "BLS Consumer Expenditure Survey 2023 (200-page public PDF)",
+        "BLS income quintile tables (Tables 1201–1205)",
+        "BLS historical CEX summary tables (2019–2023)",
+      ]}
+      analyticalApproach="Parsed the BLS PDF into structured JSON — 8 major spending categories across 5 income quintiles. Calculated spending share (% of income) alongside absolute dollars to reveal counterintuitive patterns like lower-income households spending a higher share on housing. The 'Find Yourself' section emerged from asking: what's the most personalized question someone can answer about their own spending?"
+      designDecisions="The scroll-driven narrative was a deliberate choice against the typical dashboard — people explore more when they feel guided. Terracotta (#6B4226) as the accent keeps it warm rather than cold/clinical. Recharts area charts with custom tooltips over standard pie charts because volume comparisons read better spatially. The NarrativeTransition between sections gives the eye a rest and prepares context for the next insight."
+      lessonsLearned="The 'Find Yourself' income filter was the feature users engaged with most, which validated the hypothesis that personalization beats average. The BLS data parsing was the longest step — about 3 hours — which could be cut to 30 minutes with a more structured prompt the next time. Would add a shareable result card for the personal finance quiz next."
+    />
 
     <!-- Data attribution -->
     <div class="max-w-3xl mx-auto px-6 pb-12 text-center">

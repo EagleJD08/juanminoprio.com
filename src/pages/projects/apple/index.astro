@@ -12,6 +12,7 @@ import ProfitStory from "@components/apple/ProfitStory";
 import InfrastructureChapter from "@components/apple/InfrastructureChapter";
 import Takeaway from "@components/apple/Takeaway";
 import ProgressIndicator from "@components/shared/ProgressIndicator";
+import HowIBuiltThis from "@components/shared/HowIBuiltThis";
 ---
 
 <BaseLayout
@@ -32,6 +33,21 @@ import ProgressIndicator from "@components/shared/ProgressIndicator";
     <ProfitStory client:visible />
     <InfrastructureChapter client:visible />
     <Takeaway client:visible />
+    <HowIBuiltThis
+      client:visible
+      theme="dark"
+      timeToBuild="~12 hours over 3 days"
+      aiTools={["Claude (analysis + copy)", "Cursor (code)", "ChatGPT (data structuring)"]}
+      dataSources={[
+        "Apple FY2025 10-K Annual Report",
+        "Q1 FY2026 Earnings Release (Jan 2026)",
+        "Apple Newsroom segment press releases",
+        "Macrotrends historical revenue data",
+      ]}
+      analyticalApproach="Started with the 10-K income statement, then decomposed each segment across 4 fiscal years to find the trend story. Calculated YoY growth rates, gross margins per segment, and revenue mix shifts. The key insight — Services' margin expansion — emerged only after normalizing by revenue contribution."
+      designDecisions="Chose a chapter-by-chapter scroll narrative instead of a dashboard so each insight lands before the next. Used Apple's own dark #1D1D1F background to echo the product aesthetic. Recharts with custom tooltips rather than D3 to keep the bundle lightweight. Progress indicator gives users a sense of journey length upfront."
+      lessonsLearned="The hardest part wasn't the charts — it was writing tight narrative commentary for each. The flywheel concept only clicked late in the process, which means the early chapters could be richer with that framing in mind. Next time: outline the narrative arc before touching code."
+    />
   </main>
 
   <Footer />
