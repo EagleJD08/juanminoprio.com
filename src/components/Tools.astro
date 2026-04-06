@@ -4,33 +4,44 @@ const categoriesEn = [
     name: "AI",
     color: "terracotta",
     tools: [
-      { name: "Claude", description: "Writing, analysis, and building systems" },
-      { name: "ChatGPT", description: "Research and brainstorming" },
-      { name: "Cursor", description: "AI-powered code editor" },
+      { name: "Claude", description: "Primary writing, analysis, and system-building assistant" },
+      { name: "ChatGPT", description: "Research, brainstorming, and rapid ideation" },
+      { name: "Cursor", description: "AI-native code editor — how this site was built" },
+      { name: "Perplexity", description: "Real-time research with cited sources" },
+      { name: "Midjourney", description: "Visual concept generation and ideation" },
     ],
   },
   {
     name: "Marketing & Analytics",
     color: "dusty-blue",
     tools: [
-      { name: "Google Analytics", description: "Data and performance tracking" },
-      { name: "LinkedIn", description: "Networking and content distribution" },
+      { name: "Google Analytics 4", description: "Web performance tracking and audience analysis" },
+      { name: "Salesforce Marketing Cloud", description: "Enterprise campaign management at scale" },
+      { name: "HubSpot", description: "CRM, lifecycle flows, and contact segmentation" },
+      { name: "Plausible Analytics", description: "Privacy-first site analytics (powers this site)" },
+      { name: "LinkedIn Campaign Manager", description: "B2B audience targeting and paid social" },
+      { name: "Sprinklr", description: "Enterprise social media management and listening" },
     ],
   },
   {
-    name: "Design",
+    name: "Design & Content",
     color: "soft-plum",
     tools: [
-      { name: "Figma", description: "Visual content creation" },
-      { name: "Canva", description: "Quick graphics and social visuals" },
+      { name: "Figma", description: "UI design, wireframes, and visual mockups" },
+      { name: "Canva", description: "Rapid social graphics and presentation decks" },
+      { name: "Adobe Creative Suite", description: "Photoshop, Illustrator for polished visual assets" },
+      { name: "CapCut", description: "Short-form video editing for social content" },
     ],
   },
   {
-    name: "Productivity",
+    name: "Productivity & Dev",
     color: "sage",
     tools: [
-      { name: "Notion", description: "Knowledge management and planning" },
-      { name: "GitHub", description: "Code hosting and version control" },
+      { name: "Notion", description: "Knowledge management, project planning, and Zettelkasten" },
+      { name: "GitHub", description: "Version control and portfolio hosting" },
+      { name: "Cloudflare Pages", description: "Edge deployment for this site" },
+      { name: "Astro", description: "Web framework powering this portfolio" },
+      { name: "Recharts", description: "React-based data visualization library" },
     ],
   },
 ];
@@ -40,33 +51,44 @@ const categoriesEs = [
     name: "IA",
     color: "terracotta",
     tools: [
-      { name: "Claude", description: "Escritura, análisis y construcción de sistemas" },
-      { name: "ChatGPT", description: "Investigación y lluvia de ideas" },
-      { name: "Cursor", description: "Editor de código con IA" },
+      { name: "Claude", description: "Asistente principal de escritura, análisis y construcción de sistemas" },
+      { name: "ChatGPT", description: "Investigación, lluvia de ideas e ideación rápida" },
+      { name: "Cursor", description: "Editor de código con IA — así fue construido este sitio" },
+      { name: "Perplexity", description: "Investigación en tiempo real con fuentes citadas" },
+      { name: "Midjourney", description: "Generación de conceptos visuales e ideación" },
     ],
   },
   {
     name: "Marketing & Analítica",
     color: "dusty-blue",
     tools: [
-      { name: "Google Analytics", description: "Datos y seguimiento de rendimiento" },
-      { name: "LinkedIn", description: "Networking y distribución de contenido" },
+      { name: "Google Analytics 4", description: "Seguimiento de rendimiento web y análisis de audiencia" },
+      { name: "Salesforce Marketing Cloud", description: "Gestión de campañas empresariales a escala" },
+      { name: "HubSpot", description: "CRM, flujos de ciclo de vida y segmentación de contactos" },
+      { name: "Plausible Analytics", description: "Análisis de sitio con privacidad (potencia este sitio)" },
+      { name: "LinkedIn Campaign Manager", description: "Segmentación B2B y social pagado" },
+      { name: "Sprinklr", description: "Gestión y escucha de redes sociales empresariales" },
     ],
   },
   {
-    name: "Diseño",
+    name: "Diseño & Contenido",
     color: "soft-plum",
     tools: [
-      { name: "Figma", description: "Creación de contenido visual" },
-      { name: "Canva", description: "Gráficos rápidos y visuales para redes" },
+      { name: "Figma", description: "Diseño de UI, wireframes y maquetas visuales" },
+      { name: "Canva", description: "Gráficos rápidos para redes y presentaciones" },
+      { name: "Adobe Creative Suite", description: "Photoshop, Illustrator para activos visuales" },
+      { name: "CapCut", description: "Edición de video corto para contenido social" },
     ],
   },
   {
-    name: "Productividad",
+    name: "Productividad & Dev",
     color: "sage",
     tools: [
-      { name: "Notion", description: "Gestión del conocimiento y planificación" },
-      { name: "GitHub", description: "Hosting de código y control de versiones" },
+      { name: "Notion", description: "Gestión del conocimiento, planificación y Zettelkasten" },
+      { name: "GitHub", description: "Control de versiones y hosting de portafolio" },
+      { name: "Cloudflare Pages", description: "Despliegue edge para este sitio" },
+      { name: "Astro", description: "Framework web que potencia este portafolio" },
+      { name: "Recharts", description: "Librería de visualización de datos basada en React" },
     ],
   },
 ];
@@ -96,28 +118,28 @@ const labelColorMap: Record<string, string> = {
         <span data-lang-es>Mis herramientas</span>
       </span>
       <h2 class="mt-3 font-heading font-bold text-navy" style="font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);">
-        <span data-lang-en>Tools I use</span>
-        <span data-lang-es>Herramientas que uso</span>
+        <span data-lang-en>Tools I use.</span>
+        <span data-lang-es>Herramientas que uso.</span>
       </h2>
       <p class="mt-4 text-slate">
-        <span data-lang-en>A curated set of tools that power my workflows across marketing, analysis, and AI productivity.</span>
-        <span data-lang-es>Un conjunto curado de herramientas que potencian mis flujos de trabajo en marketing, análisis e IA.</span>
+        <span data-lang-en>The stack I rely on daily — across enterprise marketing, AI productivity, data storytelling, and building this site.</span>
+        <span data-lang-es>El stack en el que me apoyo diariamente — marketing empresarial, productividad con IA, storytelling de datos y construcción de este sitio.</span>
       </p>
     </div>
 
     <!-- English tools -->
-    <div data-lang-en class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+    <div data-lang-en class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-x-20 md:gap-y-14">
       {categoriesEn.map((cat) => (
         <div class="reveal">
           <div class="flex items-center gap-2.5 mb-5">
             <div class={`w-2 h-2 rounded-full ${dotColorMap[cat.color] || "bg-sand"}`}></div>
             <span class={`text-xs font-medium tracking-widest uppercase ${labelColorMap[cat.color] || "text-slate"}`}>{cat.name}</span>
           </div>
-          <div class="space-y-3">
+          <div class="space-y-0">
             {cat.tools.map((tool) => (
               <div class="flex items-baseline justify-between gap-4 py-2.5 border-b border-sand/30 last:border-0">
-                <h3 class="font-heading font-semibold text-navy">{tool.name}</h3>
-                <p class="text-sm text-slate text-right">{tool.description}</p>
+                <h3 class="font-heading font-semibold text-navy shrink-0">{tool.name}</h3>
+                <p class="text-sm text-slate text-right leading-snug">{tool.description}</p>
               </div>
             ))}
           </div>
@@ -126,18 +148,18 @@ const labelColorMap: Record<string, string> = {
     </div>
 
     <!-- Spanish tools -->
-    <div data-lang-es class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+    <div data-lang-es class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-x-20 md:gap-y-14">
       {categoriesEs.map((cat) => (
         <div class="reveal">
           <div class="flex items-center gap-2.5 mb-5">
             <div class={`w-2 h-2 rounded-full ${dotColorMap[cat.color] || "bg-sand"}`}></div>
             <span class={`text-xs font-medium tracking-widest uppercase ${labelColorMap[cat.color] || "text-slate"}`}>{cat.name}</span>
           </div>
-          <div class="space-y-3">
+          <div class="space-y-0">
             {cat.tools.map((tool) => (
               <div class="flex items-baseline justify-between gap-4 py-2.5 border-b border-sand/30 last:border-0">
-                <h3 class="font-heading font-semibold text-navy">{tool.name}</h3>
-                <p class="text-sm text-slate text-right">{tool.description}</p>
+                <h3 class="font-heading font-semibold text-navy shrink-0">{tool.name}</h3>
+                <p class="text-sm text-slate text-right leading-snug">{tool.description}</p>
               </div>
             ))}
           </div>
