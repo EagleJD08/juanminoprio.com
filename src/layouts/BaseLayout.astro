@@ -5,9 +5,20 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
 }
 
-const { title, description = "Finance. Marketing. AI. — Making the complex clear.", ogImage = "/images/og-image.png" } = Astro.props;
+const {
+  title,
+  description = "Finance. Marketing. AI. — Making the complex clear.",
+  ogImage = "/images/og-image.png",
+  type = "website",
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://juanminoprio.com').href;
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site ?? 'https://juanminoprio.com').href;
 ---
 
 <!doctype html>
@@ -17,6 +28,11 @@ const { title, description = "Finance. Marketing. AI. — Making the complex cle
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Juan Minoprio" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <!-- i18n: set language before first paint to prevent flash -->
     <script is:inline>
@@ -26,11 +42,36 @@ const { title, description = "Finance. Marketing. AI. — Making the complex cle
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:type" content={type} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Juan Minoprio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+    <meta name="twitter:creator" content="@juanminoprio" />
+
+    <!-- JSON-LD Person schema (homepage only) -->
+    {Astro.url.pathname === '/' && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Juan Minoprio",
+        "url": "https://juanminoprio.com",
+        "jobTitle": "Marketing Specialist",
+        "worksFor": { "@type": "Organization", "name": "Charles Schwab" },
+        "sameAs": [
+          "https://www.linkedin.com/in/juanminoprio"
+        ],
+        "knowsAbout": ["Consumer Psychology", "Marketing Strategy", "AI for Marketing", "Data Storytelling", "MarTech"]
+      })} />
+    )}
 
     <!-- Preload critical fonts -->
     <link rel="preload" href="/fonts/PlusJakartaSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
