@@ -15,19 +15,19 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 
 ### P0 — Ship This Week
 - [x] Add Apple Revenue Dashboard to Portfolio Grid — components exist at `src/components/apple/`, need content collection entry + portfolio card (2026-04-01)
-- [ ] Add Schwab Dashboard to Portfolio Grid — components exist at `src/components/schwab/`, need content collection entry + portfolio card
+- [x] Add Schwab Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-06)
 - [ ] "Case Study Mode" toggle on data dashboards — add a toggle that switches between "Data View" (charts/numbers) and "Strategy View" (guided narrative with annotations, strategic insights, and "what I would do" commentary overlaid on the same charts). Start with Apple Revenue Dashboard. Shows hiring managers how Juan thinks, not just what he built.
-- [ ] "Results I've Driven" metrics banner — animated counter section surfacing 4-5 key metrics (10.2M impressions, 42% faster turnaround, 3 interactive projects shipped, etc.). Position between About and Resume. Numbers-first credibility for finance hiring managers.
-- [ ] "How I Built This" collapsible process sections on portfolio projects — narrative walkthrough of tools used, data sources, analytical approach, design decisions, and lessons learned. Includes "Time to build" and "AI tools used" callouts. Start with Apple + Spending Viz.
-- [ ] Populate Tools page with real content — curated list of tools Juan uses (AI, marketing stack, productivity), positioned as practitioner credibility
-- [ ] SEO metadata + Open Graph improvements — unique OG images per page, structured data, sitemap
+- [x] "Results I've Driven" metrics banner — animated counter section with 4 key metrics, positioned between About and Resume (2026-04-06)
+- [x] "How I Built This" collapsible process sections on portfolio projects — added to Apple + Schwab pages with data sources, approach, AI tools, and lessons learned (2026-04-06)
+- [x] Populate Tools page with real content — 20 tools across 4 categories (AI, Marketing & Analytics, Design & Content, Productivity & Dev) (2026-04-06)
+- [x] SEO metadata + Open Graph improvements — canonical URLs, structured data (JSON-LD), Twitter cards, absolute OG image URLs, sitemap.xml (2026-04-06)
 
 ### P1 — This Month
-- [ ] Skills Radar / T-Shape Competency Map — interactive spider/radar chart (React + Recharts) mapping Juan's T-shaped expertise. Vertical axis: Consumer Psychology (deep). Horizontal arms: AI for Marketing, MarTech, Data Storytelling, Product Marketing, Lifecycle Marketing, Content Production, Financial Literacy. Each node is clickable and expands to show evidence (project link, metric, or LinkedIn post). Gives recruiters an instant "does this person match our JD?" answer in one visual.
+- [x] Skills Radar / T-Shape Competency Map — interactive Recharts radar with 7 skill axes, clickable nodes expand to evidence panels with project links and metrics (2026-04-06)
 - [ ] Edge Social Proof API — Cloudflare Worker + D1 endpoint (`/api/stats`) that surfaces live site metrics: quiz completion count + most common result, portfolio project view counts. Lightweight React widget on portfolio grid cards shows real numbers (e.g., "427 people have taken this quiz"). Uses `navigator.sendBeacon` for zero LCP impact. Demonstrates full-stack edge data instrumentation.
 - [ ] Blog/Writing section — content collection for articles, listing page with pillar filtering (Consumer Psych / AI / Business), individual article pages with MDX support
 - [ ] "One Chart" data visualization series — 5 standalone interactive charts (React + Recharts), each telling one business story, linkable from LinkedIn posts
-- [ ] Mobile responsiveness polish — audit all components on mobile viewports, fix any layout issues
+- [x] Mobile responsiveness polish — fixed MetricsBanner grid dividers on mobile, added Skills/Portfolio nav links (2026-04-06)
 - [ ] Performance optimization pass — lazy load below-fold components, optimize images, minimize JS bundle
 
 ### P2 — Next Month
@@ -45,3 +45,10 @@ Prioritized list for the overnight Website Feature Factory agent. Agent picks th
 
 ## Completed
 - [x] Add Apple Revenue Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-01)
+- [x] Add Schwab Dashboard to Portfolio Grid — content entry + SVG thumbnail added (2026-04-06)
+- [x] "Results I've Driven" metrics banner — animated counter section, 4 metrics, navy background section (2026-04-06)
+- [x] "How I Built This" collapsible sections — shared component added to Apple + Schwab project pages (2026-04-06)
+- [x] Populate Tools page with real content — expanded from 8 to 20 tools across 4 categories (2026-04-06)
+- [x] SEO metadata + Open Graph improvements — canonical, JSON-LD, Twitter cards, sitemap.xml (2026-04-06)
+- [x] Skills Radar / T-Shape Competency Map — interactive Recharts radar with clickable evidence panels (2026-04-06)
+- [x] Mobile responsiveness polish — MetricsBanner grid fix, Skills/Portfolio nav links added (2026-04-06)
