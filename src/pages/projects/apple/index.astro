@@ -12,6 +12,7 @@ import ProfitStory from "@components/apple/ProfitStory";
 import InfrastructureChapter from "@components/apple/InfrastructureChapter";
 import Takeaway from "@components/apple/Takeaway";
 import ProgressIndicator from "@components/shared/ProgressIndicator";
+import HowIBuiltThis from "@components/shared/HowIBuiltThis";
 ---
 
 <BaseLayout
@@ -31,6 +32,61 @@ import ProgressIndicator from "@components/shared/ProgressIndicator";
     <ProfitStory client:visible />
     <InfrastructureChapter client:visible />
     <Takeaway client:visible />
+    <HowIBuiltThis
+      client:visible
+      timeToBuild="~12 hours across 3 sessions"
+      aiTools={["Claude (architecture + analysis)", "Cursor (code editor)", "ChatGPT (data cross-check)"]}
+      dataSources={[
+        "Apple FY2025 Annual Report (10-K) — primary source for all revenue figures",
+        "Apple Q4 2025 Earnings Release — segment breakdown and YoY comparisons",
+        "Apple Investor Relations page — historical data for trend analysis",
+        "SEC EDGAR — verified reported figures against filed documents",
+      ]}
+      sections={[
+        {
+          icon: "approach",
+          title: "Analytical approach",
+          items: [
+            "Started with the 10-K to map all five revenue segments: iPhone, Services, Mac, iPad, and Wearables",
+            "Built a revenue waterfall to show how each segment contributes to the $416.2B total",
+            "Layered in gross margin data to reveal why Services is Apple's most strategic business",
+            "Added geographic breakdown to show concentration risk (Americas vs. Greater China)",
+            "Framed every chart as a question — 'Why does Services matter more than Mac?' — before building the answer",
+          ],
+        },
+        {
+          icon: "design",
+          title: "Design decisions",
+          items: [
+            "Chose dark backgrounds for charts to create contrast with the cream/navy site palette",
+            "Used horizontal bar charts for segment comparisons — faster to scan than pie charts",
+            "Framer Motion viewport animations to reward scrolling and pace the narrative",
+            "Kept each chapter self-contained so readers can share deep links to specific insights",
+            "Added strategic 'Takeaway' callout boxes to make the 'so what' explicit",
+          ],
+        },
+        {
+          icon: "ai",
+          title: "How AI accelerated this",
+          items: [
+            "Claude helped structure the narrative arc — which chapters to include and in what order",
+            "Used Claude to draft initial chart commentary, then refined for accuracy and tone",
+            "Cursor's autocomplete dramatically sped up repetitive Recharts configuration",
+            "Cross-checked all figures with ChatGPT as a second-pass sanity check",
+          ],
+        },
+        {
+          icon: "lessons",
+          title: "What I learned",
+          items: [
+            "Services has higher gross margins (~75%) than hardware (~37%) — this explains Apple's strategic pivot",
+            "Recharts SSR limitations required client:visible hydration to avoid build-time chart errors",
+            "Narrative-first design (write the story, then build the chart) produces more coherent data stories than chart-first",
+            "Apple's 'Wearables, Home, and Accessories' category is surprisingly large — ~$53B, bigger than many Fortune 500 companies",
+          ],
+        },
+      ]}
+    />
   </main>
 
   <Footer />

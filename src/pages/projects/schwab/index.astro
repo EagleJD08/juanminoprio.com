@@ -10,6 +10,7 @@ import TradingRevenue from "@components/schwab/TradingRevenue";
 import CostWaterfall from "@components/schwab/CostWaterfall";
 import Takeaway from "@components/schwab/Takeaway";
 import ProgressIndicator from "@components/shared/ProgressIndicator";
+import HowIBuiltThis from "@components/shared/HowIBuiltThis";
 ---
 
 <BaseLayout
@@ -27,6 +28,62 @@ import ProgressIndicator from "@components/shared/ProgressIndicator";
     <TradingRevenue client:visible />
     <CostWaterfall client:visible />
     <Takeaway client:visible />
+    <HowIBuiltThis
+      client:visible
+      timeToBuild="~10 hours across 2 sessions"
+      aiTools={["Claude (architecture + narrative)", "Cursor (code editor)", "Perplexity (data verification)"]}
+      dataSources={[
+        "Charles Schwab FY2024 Annual Report (10-K) — primary revenue and segment data",
+        "Schwab Q4 2024 Earnings Release — net interest income and asset management breakdown",
+        "Schwab Investor Relations — AUM figures and client account data",
+        "SEC EDGAR — verified all reported financials against official filings",
+        "Federal Reserve data — interest rate context for net interest income analysis",
+      ]}
+      sections={[
+        {
+          icon: "approach",
+          title: "Analytical approach",
+          items: [
+            "Mapped Schwab's four revenue streams: Net Interest Income, Asset Management Fees, Trading Revenue, and Other",
+            "Focused the narrative on the interest rate sensitivity story — Schwab's largest segment (~47%) is directly tied to Fed policy",
+            "Built a cost waterfall to show operating leverage and why efficiency matters in wealth management",
+            "Contextualized the $9.9T AUM figure to show scale — larger than the GDP of every country except the US",
+            "Framed each chapter as a strategic question a CFO or CMO would actually ask",
+          ],
+        },
+        {
+          icon: "design",
+          title: "Design decisions",
+          items: [
+            "Used blue tones (dusty-blue palette) to match the financial/institutional feel of Schwab's brand",
+            "Waterfall charts for cost structure — clearest way to show cumulative cost buildup",
+            "Polar/radial charts for asset allocation — shows relative weight without implying sequence",
+            "Kept annotations minimal — let the numbers speak, add context only when unintuitive",
+            "Progressive disclosure: hook section first, then drill down chapter by chapter",
+          ],
+        },
+        {
+          icon: "ai",
+          title: "How AI accelerated this",
+          items: [
+            "Claude helped structure the 7-chapter narrative arc and identify the most compelling angles",
+            "Used Perplexity to verify Fed rate decisions and their timing relative to Schwab's NII performance",
+            "Cursor autocomplete handled repetitive Recharts configuration and TypeScript prop types",
+            "Claude drafted the strategic 'Takeaway' framing — what does this mean for Schwab's business model?",
+          ],
+        },
+        {
+          icon: "lessons",
+          title: "What I learned",
+          items: [
+            "Schwab's business is more interest-rate sensitive than most people realize — NII drives nearly half of revenue",
+            "The TD Ameritrade merger (2020) dramatically increased Schwab's scale but also its complexity",
+            "Commission-free trading eliminated a revenue stream, forcing Schwab to monetize through cash sweep accounts instead",
+            "Wealth management at scale is fundamentally a float business — similar dynamics to insurance and banking",
+          ],
+        },
+      ]}
+    />
   </main>
 
   <Footer />
