@@ -142,7 +142,7 @@ export default function MetricsBanner() {
           </h2>
         </div>
 
-        <div className="stagger-children grid grid-cols-2 md:grid-cols-4 divide-x divide-cream/10">
+        <div className="stagger-children grid grid-cols-2 md:grid-cols-4 gap-px bg-cream/10">
           {metrics.map((metric, i) => (
             <MetricCard key={metric.label} metric={metric} index={i} inView={inView} />
           ))}
